@@ -21,12 +21,13 @@
     <!-- <button onclick="SwitchToMap3()" class="map3">Улучшенный март 2021</button> -->
   </div>
   <div class="zoom">
-    <button onclick="zoomIn()" class="plus">&#43;</button>
-    <button onclick="zoomOut()" class="minus">&#8722;</button>
+    <button onclick="zoom(.5)" class="plus">&#43;</button>
+    <button onclick="zoom(-.5)" class="minus">&#8722;</button>
   </div>
-  <div class="container">
-    <div class="draggable">
-    </div>
+
+  <div class="container" data-zoom="1">
+    <div class="draggable"></div>
+  </div>
   </div>
 </body>
 
@@ -59,31 +60,12 @@
     var moveTopPercent = 30;
     var moveLeftPercent = 30;
 
-    var top = $(".draggable").css("top");
-    var topResult = parseInt(top) + (parseInt(top) / 100 * moveTopPercent);
-    $(".draggable").css("top", topResult);
-
-    var left = $(".draggable").css("left");
-    var leftResult = parseInt(left) + (parseInt(left) / 100 * moveLeftPercent);
-    $(".draggable").css("left", leftResult);
-  }
-  function zoomOut() {
-    var scale = $(".draggable").css("background-size");
-    var space = "\u0020";
-    var scaleResult = parseInt(scale) - 25 + "%";
-    var scaleResultDouble = scaleResult + space + scaleResult;
-    $(".draggable").css("background-size", scaleResultDouble);
-
-    var moveTopPercent = 30;
-    var moveLeftPercent = 30;
-
-    var top = $(".draggable").css("top");
-    var topResult = parseInt(top) - (parseInt(top) / 100 * moveTopPercent);
-    $(".draggable").css("top", topResult);
-
-    var left = $(".draggable").css("left");
-    var leftResult = parseInt(left) - (parseInt(left) / 100 * moveLeftPercent);
-    $(".draggable").css("left", leftResult);
+  function zoom(delta) {
+    var $container = $('.container');
+    var prevScale = $container.data('zoom');
+    var newScale = Math.max(prevScale + delta, 1);
+    $container.data('zoom', newScale)
+    $container.css('transform', `scale(${newScale})`)
   }
 </script>
 
