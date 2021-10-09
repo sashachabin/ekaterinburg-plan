@@ -32,30 +32,11 @@
 </body>
 
 <script>
-  function SwitchToMap1() {
-    $(".draggable").css("background-image", "url(gp-1-min.jpg)");
-    $(".map2").removeClass("butttonMapSelect");
-    $(".map3").removeClass("butttonMapSelect");
-    $(".map1").addClass("butttonMapSelect");
+  // Preload images
+  for (mapUrl of Object.values(PLANS)) {
+    var image = new Image();
+    image.src = mapUrl;
   }
-  function SwitchToMap2() {
-    $(".draggable").css("background-image", "url(gp-2-min.jpg)");
-    $(".map1").removeClass("butttonMapSelect");
-    $(".map3").removeClass("butttonMapSelect");
-    $(".map2").addClass("butttonMapSelect");
-  }
-  // function SwitchToMap3() {
-  // 	$(".draggable").css("background-image", "url(gp-3-min.jpg)");
-  // 	$(".map1").removeClass("butttonMapSelect");
-  // 	$(".map2").removeClass("butttonMapSelect");
-  // 	$(".map3").addClass( "butttonMapSelect" );
-  // }
-  function zoomIn() {
-    var scale = $(".draggable").css("background-size");
-    var space = "\u0020";
-    var scaleResult = parseInt(scale) + 25 + "%";
-    var scaleResultDouble = scaleResult + space + scaleResult;
-    $(".draggable").css("background-size", scaleResultDouble);
 
     var moveTopPercent = 30;
     var moveLeftPercent = 30;
