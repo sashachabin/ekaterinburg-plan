@@ -81,6 +81,7 @@
     align-items: center;
     justify-content: center;
     color: black;
+    background-color: #303030;
   }
 
   button {
@@ -100,7 +101,7 @@
     outline: none;
   }
 
-  div.mapsToggle {
+  .mapsToggle {
     display: flex;
     position: absolute;
     z-index: 1000;
@@ -113,9 +114,10 @@
     padding-left: 5px;
     padding-right: 5px;
     background-color: rgba(220, 220, 220, .95);
+    transition: all .15s ease;
   }
 
-  div.mapsToggle button {
+  .mapsToggle button {
     background-color: rgba(255, 255, 255, .0);
     font-family: sans-serif;
     font-size: 16px;
@@ -127,29 +129,29 @@
     border-radius: 10px;
   }
 
-  div.mapsToggle button.butttonMapSelect {
+  .mapsToggle button.butttonMapSelect {
     background-color: rgba(255, 255, 255, 1);
     color: black;
     cursor: auto;
     border-bottom: 1px solid rgba(0, 0, 0, .25);
   }
 
-  div.mapsToggle button:hover {
+  .mapsToggle button:hover {
     background-color: rgba(255, 255, 255, .7);
     border-bottom: 1px solid rgba(0, 0, 0, .15);
   }
 
-  div.mapsToggle button:active {
+  .mapsToggle button:active {
     background-color: rgba(255, 255, 255, .9);
     border-bottom: 1px solid rgba(0, 0, 0, .2);
   }
 
-  div.mapsToggle button:nth-child(2) {
+  .mapsToggle button:nth-child(2) {
     margin-left: 5px;
     margin-right: 5px;
   }
 
-  div.zoom {
+  .zoom {
     left: 0;
     position: absolute;
     z-index: 1000;
@@ -160,40 +162,37 @@
     background-color: #FFFFFF;
   }
 
-  div.zoom button {
+  .zoom button {
     color: rgba(0, 0, 0, .75);
     font-size: 32px;
     width: 45px;
     height: 48px;
+    transition: all .15s ease;
   }
 
-  div.zoom button:hover {
+  .zoom button:hover {
     background-color: #EBEBEB;
   }
 
-  div.zoom button:active {
+  .zoom button:active {
     background-color: #E0E0E0;
   }
 
   button.plus {
     border-radius: 50px 50px 0px 0px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
   }
 
   button.minus {
     border-radius: 0px 0px 50px 50px;
     padding-top: 0px;
-    padding-bottom: 9px;
+    padding-bottom: 3px;
   }
 
-  div.container {
-    width: 100vw;
-    height: 100vh;
-    background-color: gray;
-    overflow: hidden;
+  .container {
     margin-bottom: 20px;
-    ;
+    transition: all .15s ease;
   }
 
   div.draggable {
