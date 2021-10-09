@@ -5,7 +5,6 @@
   <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
   <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
-
 </head>
 
 <script>
@@ -14,11 +13,11 @@
     "Новый генплан": "/gp-2-min.jpg"
   };
 </script>
+
 <body>
-  <div class="mapsToggle">
-    <button onclick="SwitchToMap1()" class="map1 butttonMapSelect">Текущий генплан</button>
-    <button onclick="SwitchToMap2()" class="map2">Новый генплан</button>
-    <!-- <button onclick="SwitchToMap3()" class="map3">Улучшенный март 2021</button> -->
+  <div class="mapsToggle" data-toggle-buttons>
+    <button data-switcher="Текущий генплан">Текущий генплан</button>
+    <button data-switcher="Новый генплан">Новый генплан</button>
   </div>
   <div class="zoom">
     <button onclick="zoom(.5)" class="plus">&#43;</button>
@@ -27,7 +26,6 @@
 
   <div class="container" data-zoom="1">
     <div class="draggable"></div>
-  </div>
   </div>
 </body>
 
@@ -38,8 +36,13 @@
     image.src = mapUrl;
   }
 
-    var moveTopPercent = 30;
-    var moveLeftPercent = 30;
+  $('[data-switcher]').on('click', (el) => {
+    var $currentButton = $(el.target);
+    var mapUrl = PLANS[$currentButton.data('switcher')];
+    $(".draggable").css("background-image", `url(${mapUrl})`);
+    $("[data-switcher]").removeClass("butttonMapSelect");
+    $currentButton.addClass("butttonMapSelect");
+  });
 
   function zoom(delta) {
     var $container = $('.container');
@@ -48,9 +51,7 @@
     $container.data('zoom', newScale)
     $container.css('transform', `scale(${newScale})`)
   }
-</script>
 
-<script>
   var $draggable = $('.draggable').draggabilly();
 </script>
 
