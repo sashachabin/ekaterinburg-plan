@@ -120,7 +120,7 @@
 
     planToggleCurrent.addEventListener('click', () => {
       newPlanSelect.disabled = true;
-      newPlanSelect.classList.remove('map-switcher__button_active');
+      planToggleNew.classList.remove('map-switcher__button_active');
       planToggleCurrent.classList.add('map-switcher__button_active');
       setMap("Старый генплан");
     })
