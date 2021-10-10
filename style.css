@@ -29,6 +29,16 @@ button:focus {
   height: 100vh;
 }
 
+.map > img {
+  opacity: 0.01;
+}
+
+.map img {
+  aspect-ratio: 1 / 1;
+  will-change: auto;
+  transform: translateZ(0);
+}
+
 .map-select {
   position: fixed;
   z-index: 1000;
@@ -131,7 +141,7 @@ button:focus {
   top: 50%;
   left: 0;
   background-color: rgba(255, 255, 255, 1);
-  transform: translate(-40px, -50%) rotate(-90deg);
+  transform: translate(-42px, -50%) rotate(-90deg);
 }
 
 .zoom {
