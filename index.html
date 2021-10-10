@@ -35,24 +35,24 @@
     const PLANS = [
       {
         title: "Старый генплан",
-        map: "plan-current",
-        legend: "legend-new",
+        map: "plan-current.jpg",
+        legend: "legend-new.jpg",
         old: true
       },
       {
         title: "Фукнциональные зоны",
-        map: "plan-functional-zones",
-        legend: "legend-new"
+        map: "optimized.png",
+        legend: "legend-new.jpg",
       },
       {
         title: "Общественный транспорт",
-        map: "plan-public-transport",
-        legend: "legend-new"
+        map: "plan-public-transport.jpg",
+        legend: "legend-new.jpg"
       },
       {
         title: "Транспортная инфраструктура",
-        map: "plan-transport-infrastructure",
-        legend: "legend-new"
+        map: "plan-transport-infrastructure.jpg",
+        legend: "legend-new.jpg"
       }
     ];
 
@@ -66,8 +66,8 @@
     const newPlanSelect = document.querySelector('[data-controls-switcher]');
 
     const image = new Image();
-    image.src = getImagePath(PLANS.find(plan => plan.old).map);
-    image.style.opacity = '.001';
+    image.src = getImagePath(PLANS.find(plan => plan.title === "Фукнциональные зоны").map);
+    image.style.display = "none";
     newPlanSelect.disabled = true;
     mapContainer.appendChild(image);
 
@@ -91,6 +91,12 @@
     });
 
     viewer.show();
+
+    
+    
+    image.addEventListener('viewed', () => {
+      viewer.zoomTo(.5);
+    })
 
     zoomInButton.addEventListener('click', () => {
       viewer.zoom(VIEWER_ZOOM_RATIO);
@@ -149,7 +155,7 @@
     }
 
     function getImagePath(image) {
-      return `./images/${image}.jpg`;
+      return `./images/${image}`;
     }
   </script>
 </body>
