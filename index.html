@@ -14,9 +14,18 @@
 </head>
 
 <body>
-  <div class="loader"><div></div><div></div><div></div><div></div></div>
-  
+  <div class="loader">
+    <div></div><div></div><div></div><div></div>
+  </div>
+
   <div class="map" data-map>
+  </div>
+
+  <div class="legend" data-legend>
+    <div class="legend__menu">
+      <img src="./images/legend-functional-zones.png">
+    </div>
+    <button class="legend__button" data-legend-button>Легенда</button>
   </div>
 
   <select class="map-select" data-controls-switcher></select>
@@ -30,8 +39,6 @@
       Новый генплан
     </button>
   </div>
-
-  <button class="legend-button">Легенда</button>
 
   <div class="zoom">
     <button class="zoom__button zoom__button_plus" data-controls-zoom-in title="Увеличить масштаб (+)">&#43;</button>
@@ -72,6 +79,8 @@
     const planToggleCurrent = document.querySelector('[data-controls-toggle="current"]');
     const planToggleNew = document.querySelector('[data-controls-toggle="new"]');
     const newPlanSelect = document.querySelector('[data-controls-switcher]');
+    const legend = document.querySelector('[data-legend]');
+    const legendToggleButton = document.querySelector('[data-legend-button]');
 
     const image = new Image();
     image.src = getImagePath(PLANS.find(plan => plan.title === "Фукнциональные зоны").map);
@@ -129,6 +138,18 @@
       }
     });
 
+    legendToggleButton.addEventListener('click', () => {
+      const isMenuOpen = legend.classList.contains('legend_open');
+      const indent = window.innerWidth * 0.3;
+
+      if (isMenuOpen) {
+        legend.classList.remove('legend_open');
+        viewer.move(-indent, 0);
+      } else {
+        legend.classList.add('legend_open');
+        viewer.move(indent, 0);
+      }
+    });
 
     planToggleCurrent.addEventListener('click', () => {
       newPlanSelect.disabled = true;

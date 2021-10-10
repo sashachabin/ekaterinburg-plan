@@ -1,4 +1,3 @@
-
 body {
   background-color: #303030;
   color: black;
@@ -32,8 +31,8 @@ button:focus {
 
 
 .map {
-  will-change: contents;
   animation: .15s 2s ease fadeIn both;
+  will-change: contents;
 }
 
 .map > img {
@@ -55,7 +54,7 @@ button:focus {
 .map-select {
   display: inline-block;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
   right: auto;
   bottom: 11px;
   left: 50%;
@@ -97,7 +96,7 @@ button:focus {
 .map-switcher {
   display: flex;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
   top: 0;
   left: 50%;
   margin-top: 20px;
@@ -143,23 +142,63 @@ button:focus {
   margin-left: 5px;
 }
 
-.legend-button {
+.legend__menu {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 92vw;
+  height: 100vh;
+  padding: 0 8px 0 0;
+  overflow: auto;
+  transform: translateX(calc(-92vw - 9px));
+  background: white;
+  box-shadow: 1px 0 15px rgba(0,0,0.05);
+  transition: transform .5s ease;
+}
+
+.legend__menu img {
+  max-width: 100%;
+}
+
+.legend__button {
   display: inline-block;
   position: fixed;
-  top: 50%;
+  z-index: 2;
+  bottom: 50%;
   left: 0;
   padding: 6px 24px;
-  transform: translate(-42px, -50%) rotate(-90deg);
+  transform: translate(-42px, 50%) rotate(-90deg);
   border: 0;
   border-radius: 0 0 8px 8px;
   background-color: rgba(255, 255, 255, 1);
+  box-shadow: -2px 2px 2px rgb(0 0 0 / 40%);
   font-size: 18px;
+  transition: transform .5s ease;
+}
+
+.legend_open .legend__menu {
+  transform: translateX(0);
+}
+
+.legend_open .legend__button {
+  transform: translate(calc(92vw - 34px), 50%) rotate(-90deg);
+}
+
+@media screen and (min-width: 1200px) {
+  .legend_open .legend__menu {
+    width: 37vw;
+  }
+
+  .legend_open .legend__button {
+    transform: translate(calc(37vw - 34px), 50%) rotate(-90deg);
+  }
 }
 
 .zoom {
   display: flex;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
   top: 50%;
   right: 24px;
   flex-direction: column;
@@ -200,9 +239,9 @@ button:focus {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 80px;
   height: 80px;
+  transform: translate(-50%, -50%);
 }
 
 .loader div {
