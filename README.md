@@ -27,6 +27,21 @@ Dev-сервер с hot-reload
 npm run dev
 ```
 
+
+## Управление
+- Изображения с легендами в папке `/images`
+- Названия и ссылки на планы и легенды в JS-объекте `PLANS`:
+  ```js
+  const PLANS = [
+    {
+      title: "Общественный транспорт",
+      map: "plan-public-transport.jpg",
+      legend: "legend-new.jpg"
+    }
+    ...
+  ];
+  ```
+
 ## Авторы
 - [Алексей Кофман](https://twitter.com/alex_kofman) — идейный вдохновитель, подгтовка карт
 - [Александр Чабин](https://twitter.com/nibach) — фронт-энд разработчик
