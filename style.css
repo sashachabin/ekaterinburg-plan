@@ -4,10 +4,6 @@ body {
   color: black;
 }
 
-.viewer-transition {
-  transition: all .1s ease;
-}
-
 button {
   margin: 0;
   border: 0;
