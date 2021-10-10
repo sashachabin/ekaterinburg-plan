@@ -14,11 +14,11 @@
   <select class="map-select" data-controls-switcher></select>
 
   <div class="map-switcher">
-    <button class="map-switcher__button map-switcher__button_active" data-controls-switch="current">
+    <button class="map-switcher__button map-switcher__button_active" data-controls-toggle="current">
       Текущий генплан
     </button>
 
-    <button class="map-switcher__button" data-controls-switch="new">
+    <button class="map-switcher__button" data-controls-toggle="new">
       Новый генплан
     </button>
   </div>
@@ -61,11 +61,14 @@
     const mapContainer = document.querySelector('[data-map]')
     const zoomInButton = document.querySelector('[data-controls-zoom-in]');
     const zoomOutButton = document.querySelector('[data-controls-zoom-out]');
-    const planSelect = document.querySelector('[data-controls-switcher]');
+    const planToggleCurrent = document.querySelector('[data-controls-toggle="current"]');
+    const planToggleNew = document.querySelector('[data-controls-toggle="new"]');
+    const newPlanSelect = document.querySelector('[data-controls-switcher]');
 
     const image = new Image();
     image.src = getImagePath(PLANS.find(plan => plan.old).map);
     image.style.opacity = '.001';
+    newPlanSelect.disabled = true;
     mapContainer.appendChild(image);
 
     const viewer = new Viewer(image, {
@@ -114,15 +117,29 @@
       }
     });
 
+
+    planToggleCurrent.addEventListener('click', () => {
+      newPlanSelect.disabled = true;
+      newPlanSelect.classList.remove('map-switcher__button_active');
+      planToggleCurrent.classList.add('map-switcher__button_active');
+      setMap("Старый генплан");
+    })
+
+    planToggleNew.addEventListener('click', () => {
+      newPlanSelect.disabled = false;
+      planToggleCurrent.classList.remove('map-switcher__button_active');
+      planToggleNew.classList.add('map-switcher__button_active');
+      setMap(newPlanSelect.value);
+    })
+    
     PLANS.filter(plan => !plan.old).map(plan => {
       const option = document.createElement('option');
       option.text = plan.title;
       option.value = plan.title;
-      planSelect.appendChild(option)
+      newPlanSelect.appendChild(option)
     });
 
-    planSelect.addEventListener('change', (e) => {
-      console.log(e.target.value)
+    newPlanSelect.addEventListener('change', (e) => {
       setMap(e.target.value);
     })
 
