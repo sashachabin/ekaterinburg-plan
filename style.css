@@ -123,6 +123,19 @@ button:focus {
   margin-left: 5px;
 }
 
+.legend-button {
+  display: inline-block;
+  border: 0;
+  font-size: 18px;
+  border-radius: 0 0 8px 8px;
+  padding: 6px 24px;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  background-color: rgba(255, 255, 255, 1);
+  transform: translate(-40px, -50%) rotate(-90deg);
+}
+
 .zoom {
   position: fixed;
   display: flex;
