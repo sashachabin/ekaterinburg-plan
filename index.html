@@ -3,190 +3,208 @@
 
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
-  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
-  <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.10.1/dist/viewer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.10.1/dist/viewer.min.js"></script>
 </head>
 
-<script>
-  var PLANS = {
-    "Текущий генплан": "/gp-1-min.jpg",
-    "Новый генплан": "/gp-2-min.jpg"
-  };
-</script>
-
 <body>
-  <div class="mapsToggle" data-toggle-buttons>
-    <button data-switcher="Текущий генплан" class="butttonMapSelect">Текущий генплан</button>
-    <button data-switcher="Новый генплан">Новый генплан</button>
-  </div>
+  <div class="map" data-map></div>
+  <!-- <div class="map-switcher">
+    <button class="map-switcher__button map-switcher__button_active" data-controls-switch="Текущий генплан">Текущий генплан</button>
+    <button class="map-switcher__button" data-controls-switch="Новый генплан">Новый генплан</button>
+  </div> -->
+
   <div class="zoom">
-    <button onclick="zoom(.5)" class="plus">&#43;</button>
-    <button onclick="zoom(-.5)" class="minus">&#8722;</button>
+    <button class="zoom__button zoom__button_plus" data-controls-zoom-in title="Увеличить масштаб (+)">&#43;</button>
+    <button class="zoom__button zoom__button_minus" data-controls-zoom-out
+      title="Уменьшить масштаб (-)">&#8722;</button>
   </div>
 
-  <div class="container" data-zoom="1">
-    <div class="draggable"></div>
-  </div>
+
+  <script>
+    const PLANS = {
+      "Текущий генплан": "/gp-1-min.jpg",
+      "Новый генплан": "/gp-2-min.jpg"
+    };
+    const VIEWER_ZOOM_RATIO = 0.5;
+
+    const image = new Image();
+    image.src = Object.values(PLANS)[0];
+    document.querySelector('[data-map]').appendChild(image);
+
+    const viewer = new Viewer(image, {
+      title: false,
+      navbar: false,
+      backdrop: false,
+      toolbar: false,
+      inline: true,
+      fullscreen: false,
+      button: false,
+      keyboard: false,
+      rotatable: false,
+      scalable: false,
+      slideOnTouch: false,
+      tooltip: false,
+      transition: true,
+      zoomRatio: VIEWER_ZOOM_RATIO,
+      maxZoomRatio: 1.6,
+      minZoomRatio: .15
+    });
+
+    viewer.show();
+
+    const zoomInButton = document.querySelector('[data-controls-zoom-in]');
+    const zoomOutButton = document.querySelector('[data-controls-zoom-out]');
+
+    zoomInButton.addEventListener('click', () => {
+      viewer.zoom(VIEWER_ZOOM_RATIO);
+    });
+
+    zoomOutButton.addEventListener('click', () => {
+      viewer.zoom(-VIEWER_ZOOM_RATIO);
+    });
+
+    document.addEventListener('keyup', ({ key }) => {
+      switch (key) {
+        case "-":
+          viewer.zoom(-VIEWER_ZOOM_RATIO);
+          break;
+
+        case "=":
+          viewer.zoom(VIEWER_ZOOM_RATIO);
+          break;
+
+        case "0":
+          viewer.reset();
+          break;
+        default: ;
+      }
+    });
+  </script>
+
+  <style>
+    body {
+      color: black;
+      background-color: #303030;
+    }
+
+    .viewer-transition {
+      transition: all .1s ease;
+    }
+
+    button {
+      border: 0;
+      margin: 0;
+      background-color: white;
+    }
+
+    button:hover {
+      cursor: pointer;
+      color: black;
+    }
+
+    button,
+    button:active,
+    button:focus {
+      outline: none;
+    }
+
+    .map {
+      top: 0;
+      left: 0;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .map > img {
+      display: none;
+    }
+
+    .map-switcher {
+      display: flex;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      margin-top: 20px;
+      box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
+      border-radius: 14px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+      background-color: rgba(220, 220, 220, .95);
+    }
+
+    .map-switcher__button {
+      background-color: rgba(255, 255, 255, .0);
+      font-family: sans-serif;
+      font-size: 16px;
+      height: 40px;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 0;
+      border: 0;
+      border-radius: 10px;
+      border-bottom: 1px solid transparent;
+      transition: background-color .15s ease;
+    }
+
+    .map-switcher__button:hover {
+      background-color: rgba(255, 255, 255, .7);
+      border-bottom: 1px solid rgba(0, 0, 0, .15);
+    }
+
+    .map-switcher__button:active,
+    .map-switcher__button_active {
+      background-color: rgba(255, 255, 255, 1);
+      color: black;
+      cursor: auto;
+      border-bottom: 1px solid rgba(0, 0, 0, .25);
+    }
+
+    .map-switcher__button:nth-child(2) {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .zoom {
+      left: 0;
+      position: absolute;
+      z-index: 1000;
+      margin-left: 25px;
+      width: 45px;
+      border-radius: 50px;
+      box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
+      background-color: #FFFFFF;
+    }
+
+    .zoom__button {
+      color: rgba(0, 0, 0, .75);
+      font-size: 32px;
+      width: 45px;
+      height: 48px;
+      transition: all .1s ease;
+    }
+
+    .zoom__button:hover,
+    .zoom__button:active {
+      background-color: #E0E0E0;
+    }
+
+    .zoom__button_plus {
+      border-radius: 50px 50px 0px 0px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(0, 0, 0, .2);
+    }
+
+    .zoom__button_minus {
+      border-radius: 0px 0px 50px 50px;
+      padding-top: 0px;
+      padding-bottom: 3px;
+    }
+  </style>
 </body>
 
-<script>
-  // Preload images
-  for (mapUrl of Object.values(PLANS)) {
-    var image = new Image();
-    image.src = mapUrl;
-  }
-
-  $('[data-switcher]').on('click', (el) => {
-    var $currentButton = $(el.target);
-    var mapUrl = PLANS[$currentButton.data('switcher')];
-    $(".draggable").css("background-image", `url(${mapUrl})`);
-    $("[data-switcher]").removeClass("butttonMapSelect");
-    $currentButton.addClass("butttonMapSelect");
-  });
-
-  function zoom(delta) {
-    var $container = $('.container');
-    var prevScale = $container.data('zoom');
-    var newScale = Math.max(prevScale + delta, 1);
-    $container.data('zoom', newScale)
-    $container.css('transform', `scale(${newScale})`)
-  }
-
-  var $draggable = $('.draggable').draggabilly();
-</script>
-
-<style>
-  body {
-    margin: 0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    background-color: #303030;
-  }
-
-  button {
-    border: 0;
-    margin: 0;
-    background-color: white;
-  }
-
-  button:hover {
-    cursor: pointer;
-    color: black;
-  }
-
-  button,
-  button:active,
-  button:focus {
-    outline: none;
-  }
-
-  .mapsToggle {
-    display: flex;
-    position: absolute;
-    z-index: 1000;
-    top: 0;
-    margin-top: 20px;
-    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
-    border-radius: 14px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    background-color: rgba(220, 220, 220, .95);
-  }
-
-  .mapsToggle button {
-    background-color: rgba(255, 255, 255, .0);
-    font-family: sans-serif;
-    font-size: 16px;
-    height: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 0;
-    border: 0;
-    border-radius: 10px;
-    border-bottom: 1px solid transparent;
-    transition: background-color .15s ease;
-  }
-
-  .mapsToggle button.butttonMapSelect {
-    background-color: rgba(255, 255, 255, 1);
-    color: black;
-    cursor: auto;
-    border-bottom: 1px solid rgba(0, 0, 0, .25);
-  }
-
-  .mapsToggle button:hover {
-    background-color: rgba(255, 255, 255, .7);
-    border-bottom: 1px solid rgba(0, 0, 0, .15);
-  }
-
-  .mapsToggle button:active {
-    background-color: rgba(255, 255, 255, .9);
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
-  }
-
-  .mapsToggle button:nth-child(2) {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-
-  .zoom {
-    left: 0;
-    position: absolute;
-    z-index: 1000;
-    margin-left: 25px;
-    width: 45px;
-    border-radius: 50px;
-    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
-    background-color: #FFFFFF;
-  }
-
-  .zoom button {
-    color: rgba(0, 0, 0, .75);
-    font-size: 32px;
-    width: 45px;
-    height: 48px;
-    transition: all .15s ease;
-  }
-
-  .zoom button:hover {
-    background-color: #EBEBEB;
-  }
-
-  .zoom button:active {
-    background-color: #E0E0E0;
-  }
-
-  button.plus {
-    border-radius: 50px 50px 0px 0px;
-    padding-bottom: 2px;
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
-  }
-
-  button.minus {
-    border-radius: 0px 0px 50px 50px;
-    padding-top: 0px;
-    padding-bottom: 3px;
-  }
-
-  .container {
-    margin-bottom: 20px;
-    transition: all .15s ease;
-  }
-
-  .draggable {
-    cursor: grab;
-    background-image: url(gp-1-min.jpg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 100vw;
-    height: 100vh;
-    background-position: center;
-  }
-</style>
 
 </html>
