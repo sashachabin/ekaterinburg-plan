@@ -37,6 +37,7 @@ button:focus {
   transform: translateZ(0);
   aspect-ratio: 1 / 1;
   will-change: auto;
+  transition: opacity .15s ease;
 }
 
 .map-select {
