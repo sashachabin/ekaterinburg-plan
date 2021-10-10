@@ -14,6 +14,8 @@
 </head>
 
 <body>
+  <div class="loader"><div></div><div></div><div></div><div></div></div>
+  
   <div class="map" data-map>
   </div>
 
@@ -92,15 +94,14 @@
       transition: true,
       zoomRatio: VIEWER_ZOOM_RATIO,
       maxZoomRatio: 4.5,
-      minZoomRatio: .15
+      minZoomRatio: .2
     });
 
     viewer.show();
 
-
-
     image.addEventListener('viewed', () => {
       viewer.zoomTo(.5);
+      setTimeout(() => image.style.display = 'none', 100);
     })
 
     zoomInButton.addEventListener('click', () => {
@@ -157,11 +158,13 @@
     function setMap(title) {
       const image = document.querySelector('.viewer-canvas img');
       const mapUrl = getImagePath(PLANS.find(plan => title === plan.title).map);
-      image.style.opacity = .5;
+      image.style.opacity = .6;
+      image.src = mapUrl;
 
-      setTimeout(() => image.src = mapUrl, 100);
-
-      image.onload = () => image.style.opacity = 1;
+      image.onload = () => {
+        image.style.transform = 'none';
+        image.style.opacity = 1;
+      }
     }
 
     function getImagePath(image) {
