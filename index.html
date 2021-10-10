@@ -71,7 +71,8 @@
       }
     ];
 
-    const VIEWER_ZOOM_RATIO = 0.5;
+    const VIEWER_ZOOM_INITIAL = 0.25;
+    const VIEWER_ZOOM_RATIO = 0.6;
 
     const mapContainer = document.querySelector('[data-map]')
     const zoomInButton = document.querySelector('[data-controls-zoom-in]');
@@ -109,7 +110,7 @@
     viewer.show();
 
     image.addEventListener('viewed', () => {
-      viewer.zoomTo(.5);
+      viewer.zoomTo(VIEWER_ZOOM_INITIAL);
       setTimeout(() => image.style.display = 'none', 100);
     })
 
@@ -132,7 +133,7 @@
           break;
 
         case "0":
-          viewer.reset();
+          viewer.zoomTo(VIEWER_ZOOM_INITIAL);
           break;
         default: ;
       }
@@ -140,14 +141,12 @@
 
     legendToggleButton.addEventListener('click', () => {
       const isMenuOpen = legend.classList.contains('legend_open');
-      const indent = window.innerWidth * 0.3;
+      const indent = window.innerWidth * 0.1;
 
       if (isMenuOpen) {
         legend.classList.remove('legend_open');
-        viewer.move(-indent, 0);
       } else {
         legend.classList.add('legend_open');
-        viewer.move(indent, 0);
       }
     });
 
