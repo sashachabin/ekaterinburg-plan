@@ -10,8 +10,10 @@
 
 <body>
   <div class="map" data-map></div>
+  <select class="map-select" data-controls-switcher></select>
   <!-- <div class="map-switcher">
-    <button class="map-switcher__button map-switcher__button_active" data-controls-switch="Текущий генплан">Текущий генплан</button>
+    <button class="map-switcher__button map-switcher__button_active" data-controls-switch="Текущий генплан">Текущий
+      генплан</button>
     <button class="map-switcher__button" data-controls-switch="Новый генплан">Новый генплан</button>
   </div> -->
 
@@ -23,14 +25,34 @@
 
 
   <script>
-    const PLANS = {
-      "Текущий генплан": "/gp-1-min.jpg",
-      "Новый генплан": "/gp-2-min.jpg"
-    };
+    const PLANS = [
+      {
+        title: "Старый генплан",
+        map: "plan-old",
+        legend: "legend-new",
+        old: true
+      },
+      {
+        title: "Фукнциональные зоны",
+        map: "plan-functional-zones",
+        legend: "legend-new"
+      },
+      {
+        title: "Общественный транспорт",
+        map: "plan-public-transport",
+        legend: "legend-new"
+      },
+      {
+        title: "Транспортная инфраструктура",
+        map: "plan-transport-infrastructure",
+        legend: "legend-new"
+      }
+    ];
+
     const VIEWER_ZOOM_RATIO = 0.5;
 
     const image = new Image();
-    image.src = Object.values(PLANS)[0];
+    image.src = getImagePath(PLANS.find(plan => plan.old).map);
     image.style.opacity = '.001';
     document.querySelector('[data-map]').appendChild(image);
 
@@ -82,6 +104,24 @@
         default: ;
       }
     });
+
+    const planSelect = document.querySelector('[data-controls-switcher]');
+
+    PLANS.filter(plan => !plan.old).map(plan => {
+      const option = document.createElement('option');
+      option.text = plan.title;
+      option.value = plan.title;
+      planSelect.addEventListener('change', (e) => {
+        if (e.target.value === plan.title) {
+          document.querySelector('.viewer-canvas img').src = getImagePath(plan.map);
+        }
+      })
+      planSelect.appendChild(option)
+    });
+
+    function getImagePath(image) {
+      return `./images/${image}.jpg`;
+    }
   </script>
 </body>
 

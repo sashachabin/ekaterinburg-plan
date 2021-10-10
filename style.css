@@ -48,8 +48,15 @@ button:focus {
   }
 }
 
+.map-select {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+}
+
 .map-switcher {
   display: flex;
+  flex-direction: column;
   position: fixed;
   z-index: 1000;
   top: 0;
