@@ -158,11 +158,12 @@
     function setMap(title) {
       const image = document.querySelector('.viewer-canvas img');
       const mapUrl = getImagePath(PLANS.find(plan => title === plan.title).map);
+      image.style.opacity = .99;
 
       setTimeout(() => {
         image.src = mapUrl;
-        image.style.opacity = .25;
-      }, 100);
+        image.style.opacity = .2;
+      }, 0);
 
       image.onload = () => {
         image.style.opacity = 1;
