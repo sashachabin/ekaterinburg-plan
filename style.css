@@ -34,66 +34,65 @@ button:focus {
 }
 
 .map img {
+  transform: translateZ(0);
   aspect-ratio: 1 / 1;
   will-change: auto;
-  transform: translateZ(0);
 }
 
 .map-select {
+  display: inline-block;
   position: fixed;
   z-index: 1000;
-  display: inline-block;
+  right: auto;
+  bottom: 11px;
+  left: 50%;
+  height: 42px;
+  padding-right: 34px;
+  padding-left: 10px;
+  transform: translate(-50%, 0);
   outline: 0;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 330 330' style='enable-background:new 0 0 330 330;' xml:space='preserve'%3E%3Cpath id='XMLID_225_' d='M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 14px) calc(50% + 1px);
+  background-size: 14px;
+  box-shadow: 0 2px 3px 1px rgb(0 0 0 / 30%);
+  font-family: sans-serif;
+  font-size: 16px;
+  font-size: 14px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  font-family: sans-serif;
-  font-size: 16px;
-  background-color: white;
-  background-repeat: no-repeat;
-  background-size: 14px;
-  background-position: calc(100% - 14px) calc(50% + 1px);
-  box-shadow: 0 2px 3px 1px rgb(0 0 0 / 30%);
-  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 330 330' style='enable-background:new 0 0 330 330;' xml:space='preserve'%3E%3Cpath id='XMLID_225_' d='M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
-  bottom: 11px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  right: auto;
-  font-size: 14px;
-  height: 42px;
-  padding-left: 10px;
-  padding-right: 34px;
-  background-size: 13px;
 }
 
 @media screen and (min-width: 1200px) {
   .map-select {
     top: 20px;
     right: 24px;
-    left: auto;
     bottom: auto;
+    left: auto;
     height: 48px;
-    transform: none;
     padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 4px;
-    padding-left: 16px;
     padding-right: 40px;
+    padding-bottom: 4px;
+    padding-left: 16px;
+    transform: none;
+    border-radius: 4px;
   }
 }
 
 .map-switcher {
   display: flex;
   position: fixed;
-  left: 50%;
-  transform: translate(-50%, 0);
   z-index: 1000;
   top: 0;
+  left: 50%;
   margin-top: 20px;
   padding-top: 5px;
   padding-right: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
+  transform: translate(-50%, 0);
   border-radius: 14px;
   background-color: rgba(220, 220, 220, .95);
   box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
@@ -133,25 +132,25 @@ button:focus {
 
 .legend-button {
   display: inline-block;
-  border: 0;
-  font-size: 18px;
-  border-radius: 0 0 8px 8px;
-  padding: 6px 24px;
   position: fixed;
   top: 50%;
   left: 0;
-  background-color: rgba(255, 255, 255, 1);
+  padding: 6px 24px;
   transform: translate(-42px, -50%) rotate(-90deg);
+  border: 0;
+  border-radius: 0 0 8px 8px;
+  background-color: rgba(255, 255, 255, 1);
+  font-size: 18px;
 }
 
 .zoom {
-  position: fixed;
   display: flex;
-  flex-direction: column;
+  position: fixed;
+  z-index: 1000;
   top: 50%;
   right: 24px;
+  flex-direction: column;
   transform: translate(0, -50%);
-  z-index: 1000;
   border-radius: 50px;
   background-color: #FFFFFF;
   box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
