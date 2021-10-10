@@ -33,6 +33,21 @@ button:focus {
   height: calc(100vh + 108px);
 }
 
+/* BUG jumps in the viewer when loading */
+.map > img {
+  animation: img-hide-fix 1s ease both;
+}
+
+@keyframes img-hide-fix {
+  from {
+    opacity: .001;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 .map-switcher {
   display: flex;
   position: fixed;

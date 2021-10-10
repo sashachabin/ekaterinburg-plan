@@ -31,7 +31,7 @@
 
     const image = new Image();
     image.src = Object.values(PLANS)[0];
-    image.style.visibility = 'hidden';
+    image.style.opacity = '.001';
     document.querySelector('[data-map]').appendChild(image);
 
     const viewer = new Viewer(image, {
@@ -39,9 +39,9 @@
       navbar: false,
       backdrop: false,
       toolbar: false,
-      inline: true,
       fullscreen: false,
       button: false,
+      inline: true,
       keyboard: false,
       rotatable: false,
       scalable: false,
