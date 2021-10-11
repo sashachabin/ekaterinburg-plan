@@ -156,6 +156,7 @@ button:focus {
 }
 
 .legend__menu img {
+  display: none;
   max-width: 100%;
 }
 
@@ -188,6 +189,10 @@ button:focus {
   transform: translate(calc(92vw - 32px), 50%) rotate(-90deg);
 }
 
+.legend_open .legend__menu img {
+  display: block;
+}
+
 @media screen and (min-width: 1200px) {
   .legend_open .legend__menu {
     width: 37vw;
@@ -204,7 +209,7 @@ button:focus {
   position: fixed;
   z-index: 1;
   top: 50%;
-  right: 24px;
+  right: 8px;
   flex-direction: column;
   transform: translate(0, -50%);
   border-radius: 50px;
@@ -218,6 +223,12 @@ button:focus {
   transition: all .1s ease;
   color: rgba(0, 0, 0, .75);
   font-size: 32px;
+}
+
+@media screen and (min-width: 991px) {
+  .zoom {
+    right: 24px;
+  }
 }
 
 .zoom__button:hover,

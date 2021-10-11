@@ -68,7 +68,6 @@ document.addEventListener('keyup', ({ key }) => {
 
 legendToggleButton.addEventListener('click', () => {
   const isMenuOpen = legend.classList.contains('legend_open');
-  const indent = window.innerWidth * 0.1;
 
   if (isMenuOpen) {
     legend.classList.remove('legend_open');
