@@ -1,4 +1,3 @@
-const VIEWER_ZOOM_INITIAL = 0.25;
 const VIEWER_ZOOM_RATIO = 0.6;
 
 const mapContainer = document.querySelector('[data-map]')
@@ -14,6 +13,9 @@ const image = new Image();
 image.src = getImagePath(PLANS.find(plan => plan.title === "Фукнциональные зоны").map);
 mapContainer.appendChild(image);
 
+const windowHeight = window.innerHeight;
+const windowWidth = window.innerWidth;
+
 const viewer = new Viewer(image, {
   title: false,
   navbar: false,
@@ -23,23 +25,28 @@ const viewer = new Viewer(image, {
   button: false,
   inline: true,
   keyboard: false,
+  zIndexInline: 1,
   rotatable: false,
   scalable: false,
   toggleOnDblclick: false,
   slideOnTouch: false,
   tooltip: false,
+  // Disable this.update()
+  isShown: false,
   transition: true,
   zoomRatio: VIEWER_ZOOM_RATIO,
   maxZoomRatio: 4.5,
-  minZoomRatio: .2
+  minZoomRatio: .21,
+  viewed() {
+    const minZoomRatio = windowHeight > windowWidth
+      ? windowHeight / viewer.imageData.naturalHeight
+      : windowWidth / viewer.imageData.naturalWidth;
+
+    viewer.isShown = false;
+    viewer.zoomTo(minZoomRatio * 2);
+    image.style.display = 'none';
+  }
 });
-
-viewer.show();
-
-image.addEventListener('viewed', () => {
-  viewer.zoomTo(VIEWER_ZOOM_INITIAL);
-  setTimeout(() => image.style.display = 'none', 100);
-})
 
 zoomInButton.addEventListener('click', () => {
   viewer.zoom(VIEWER_ZOOM_RATIO);
