@@ -81,14 +81,16 @@ planToggleCurrent.addEventListener('click', () => {
   newPlanSelect.disabled = true;
   planToggleNew.classList.remove('map-switcher__button_active');
   planToggleCurrent.classList.add('map-switcher__button_active');
-  setMap("Старый генплан");
+  setPlan("Старый генплан");
+  setLegend("Старый генплан");
 })
 
 planToggleNew.addEventListener('click', () => {
   newPlanSelect.disabled = false;
   planToggleCurrent.classList.remove('map-switcher__button_active');
   planToggleNew.classList.add('map-switcher__button_active');
-  setMap(newPlanSelect.value);
+  setPlan(newPlanSelect.value);
+  setLegend(newPlanSelect.value);
 })
 
 PLANS.filter(plan => !plan.old).map(plan => {
@@ -99,10 +101,11 @@ PLANS.filter(plan => !plan.old).map(plan => {
 });
 
 newPlanSelect.addEventListener('change', (e) => {
-  setMap(e.target.value);
+  setPlan(e.target.value);
+  setLegend(e.target.value);
 })
 
-function setMap(title) {
+function setPlan(title) {
   const image = document.querySelector('.viewer-canvas img');
   const mapUrl = getImagePath(PLANS.find(plan => title === plan.title).map);
   image.style.opacity = .99;
@@ -115,6 +118,11 @@ function setMap(title) {
   image.onload = () => {
     image.style.opacity = 1;
   }
+}
+
+function setLegend(title) {
+  const legendUrl = getImagePath(PLANS.find(plan => title === plan.title).legend);
+  document.querySelector('[data-legend-image]').src = legendUrl;
 }
 
 function getImagePath(image) {
