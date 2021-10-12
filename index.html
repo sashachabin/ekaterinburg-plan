@@ -19,13 +19,6 @@
 
   <div class="map" data-map></div>
 
-  <aside class="legend" data-legend>
-    <div class="legend__menu" data-legend-menu></div>
-    <button class="legend__button" data-legend-button>Легенда</button>
-  </aside>
-
-  <select class="map-select" data-controls-switcher></select>
-
   <div class="map-switcher">
     <button class="map-switcher__button" data-controls-toggle="current">
       Текущий генплан
@@ -36,14 +29,21 @@
     </button>
   </div>
 
+  <select class="map-select" data-controls-switcher></select>
+
+  <aside class="legend" data-legend>
+    <div class="legend__menu" data-legend-menu></div>
+    <button class="legend__button" data-legend-button>Легенда</button>
+  </aside>
+
   <div class="zoom">
     <button class="zoom__button zoom__button_plus" data-controls-zoom-in title="Увеличить масштаб (+)">&#43;</button>
     <button class="zoom__button zoom__button_minus" data-controls-zoom-out title="Уменьшить масштаб (-)">&#8722;</button>
   </div>
 
-  <a href="http://genplanekb.city/" class="contact-button" target="_blank">Оставить предложение</a>
+  <a href="http://genplanekb.city/" class="contact-button" target="_blank" tabindex="0">Оставить предложение</a>
 
-  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank">О разработчиках карты на GitHub</a>
+  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank" tabindex="0">О разработчиках карты на GitHub</a>
 
   <script src="./script.js"></script>
 
