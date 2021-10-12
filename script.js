@@ -63,13 +63,18 @@ const zoomOutButton = query('[data-controls-zoom-out]');
 zoomOutButton.addEventListener('click', () => viewer.zoom(-VIEWER_ZOOM_RATIO));
 
 document.addEventListener('keyup', ({ key }) => {
-  const actions = {
-    '0': () => viewer.zoomTo(VIEWER_ZOOM_INITIAL),
-    '-': () => viewer.zoom(-VIEWER_ZOOM_RATIO),
-    '=': () => viewer.zoom(+VIEWER_ZOOM_RATIO),
-  };
-
-  if (key in actions) actions[key]();
+  switch (key) {
+    case '+':
+    case '=':
+      viewer.zoom(+VIEWER_ZOOM_RATIO);
+      break;
+    case '-':
+      viewer.zoom(-VIEWER_ZOOM_RATIO);
+      break;
+    case '0':
+      viewer.zoomTo(VIEWER_ZOOM_INITIAL);
+      break;
+  }
 });
 
 /* Legend */
