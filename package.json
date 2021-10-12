@@ -3,23 +3,14 @@
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "dev": "npx browser-sync start --server -f ."
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/a-chabin/ekaterinburg-plan.git"
   },
-  "author": "",
+  "author": "Alexander Chabin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/a-chabin/ekaterinburg-plan/issues"
   },
-  "homepage": "https://github.com/a-chabin/ekaterinburg-plan#readme",
-  "devDependencies": {
-    "browser-sync": "^2.27.5"
-  },
-  "dependencies": {
-    "serve": "^12.0.1"
-  }
+  "homepage": "https://github.com/a-chabin/ekaterinburg-plan#readme"
 }
