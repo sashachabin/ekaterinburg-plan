@@ -161,7 +161,7 @@ button:focus {
   top: 0;
   left: 0;
   width: 37vw;
-  height: 100vh;
+  height: 100%;
   transform: translateX(calc(-100% - 5px));
   transition: transform .15s ease;
 }
