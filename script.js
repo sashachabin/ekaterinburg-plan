@@ -166,14 +166,14 @@ newPlanSelect.addEventListener('change', ({ target }) => {
 
 planToggleNew.addEventListener('click', () => {
   newPlanSelect.disabled = false;
-  planToggleCurrent.classList.remove('map-switcher__button_active');
-  planToggleNew.classList.add('map-switcher__button_active');
+  planToggleCurrent.classList.remove('map-toggle__button_active');
+  planToggleNew.classList.add('map-toggle__button_active');
   setPlan(newPlanSelect.value);
 });
 
 planToggleCurrent.addEventListener('click', () => {
   newPlanSelect.disabled = true;
-  planToggleNew.classList.remove('map-switcher__button_active');
-  planToggleCurrent.classList.add('map-switcher__button_active');
+  planToggleNew.classList.remove('map-toggle__button_active');
+  planToggleCurrent.classList.add('map-toggle__button_active');
   setPlan(OLD_PLAN_TITLE);
 });

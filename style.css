@@ -9,7 +9,7 @@ body {
 }
 
 body {
-  background-color: #303030;
+  background-color: #363636;
   color: black;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -49,15 +49,22 @@ select:focus-visible {
 }
 
 .map {
-  animation: .15s 2s ease fadeIn both;
+  transform: translateZ(0);
+  animation: .15s .25s ease fadeIn both;
   will-change: contents;
+}
+
+.map img {
+  box-shadow: 0 0 65px rgba(0,0,0,.5);
+  aspect-ratio: 1 / 1;
 }
 
 .map > img {
   transform: translateZ(0);
   opacity: .01;
-  aspect-ratio: 1 / 1;
+  box-shadow: none;
 }
+
 
 @keyframes fadeIn {
   from {
@@ -69,92 +76,110 @@ select:focus-visible {
   }
 }
 
+.map-switcher {
+  display: flex;
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  row-gap: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .map-switcher {
+    flex-wrap: nowrap;
+    column-gap: 8px;
+  }
+}
+
 .map-select {
   display: inline-block;
-  position: fixed;
   z-index: 1;
-  top: 72px;
-  right: auto;
-  left: 50%;
-  height: 42px;
+  max-width: 300px;
+  height: 50px;
   padding-right: 34px;
   padding-left: 8px;
-  transform: translate(-50%, 0);
+  overflow: hidden;
+  transition: background-color .15s ease;
   border: 0;
+  border-radius: 8px;
   background-color: white;
   background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 330 330' style='enable-background:new 0 0 330 330;' xml:space='preserve'%3E%3Cpath id='XMLID_225_' d='M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;
-  background-position: calc(100% - 14px) calc(50% + 1px);
-  background-size: 14px;
-  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
+  background-position: calc(100% - 13px) calc(50% + 1px);
+  background-size: 13px;
+  box-shadow: 0 2px rgba(0, 0, 0, .2), 0 2px 3px 1px rgba(0, 0, 0, .3);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
 
+.map-select:hover {
+  background-color: white;
+}
+
 @media screen and (min-width: 1200px) {
   .map-select {
-    top: 20px;
-    right: 24px;
-    left: auto;
-    height: 48px;
     padding-top: 4px;
     padding-right: 40px;
     padding-bottom: 4px;
     padding-left: 16px;
-    transform: none;
-    border-radius: 4px;
     font-size: 14px;
   }
 }
 
-.map-switcher {
+.map-toggle {
   display: flex;
-  position: fixed;
   z-index: 1;
   top: 0;
   left: 50%;
-  margin-top: 15px;
+  flex-grow: 1;
   padding-top: 5px;
   padding-right: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
   column-gap: 5px;
-  transform: translate(-50%, 0);
   border-radius: 10px;
   background-color: rgba(220, 220, 220, .95);
   box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
 }
 
-.map-switcher__button {
+.map-toggle__button {
+  flex-grow: 1;
   height: 40px;
-  padding-right: 20px;
+  padding-right: 16px;
   padding-bottom: 0;
-  padding-left: 20px;
+  padding-left: 16px;
   transition: background-color .15s ease;
   border: 0;
   border-bottom: 1px solid transparent;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, .0);
   font-size: 13px;
+  text-align: center;
   white-space: nowrap;
 }
 
 @media screen and (min-width: 991px) {
-  .map-switcher__button {
+  .map-toggle__button {
     font-size: 14px;
   }
 }
 
-.map-switcher__button:hover {
+.map-toggle__button:hover {
   border-bottom: 1px solid rgba(0, 0, 0, .15);
   background-color: rgba(255, 255, 255, .7);
 }
 
-.map-switcher__button:active,
-.map-switcher__button_active {
+.map-toggle__button:active,
+.map-toggle__button_active {
   border-bottom: 1px solid rgba(0, 0, 0, .25);
   background-color: rgba(255, 255, 255, 1);
   color: black;
@@ -256,11 +281,11 @@ select:focus-visible {
 }
 
 .zoom__button:hover{
-  background: rgba(0, 0, 0, 0.025);
+  background: rgba(0, 0, 0, .025);
 }
 
 .zoom__button:active {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, .05);
 }
 
 .zoom__button_plus {
@@ -352,22 +377,22 @@ select:focus-visible {
 
 .loader div:nth-child(1) {
   left: 8px;
-  animation: loader1 0.6s infinite;
+  animation: loader1 .6s infinite;
 }
 
 .loader div:nth-child(2) {
   left: 8px;
-  animation: loader2 0.6s infinite;
+  animation: loader2 .6s infinite;
 }
 
 .loader div:nth-child(3) {
   left: 32px;
-  animation: loader2 0.6s infinite;
+  animation: loader2 .6s infinite;
 }
 
 .loader div:nth-child(4) {
   left: 56px;
-  animation: loader3 0.6s infinite;
+  animation: loader3 .6s infinite;
 }
 
 @keyframes loader1 {
@@ -396,18 +421,24 @@ select:focus-visible {
 }
 
 @supports (backdrop-filter: blur(5px)) {
-  .map-switcher {
-    backdrop-filter: blur(8px);
-    background-color: rgba(225, 225, 225, .7);
+  .map-toggle {
     border: 1px solid rgba(255,255,255,.1);
+    background-color: rgba(240, 240, 240, .8);
+    backdrop-filter: blur(8px);
   }
 
-  .map-select,
+
+  .map-select {
+    border: 1px solid rgba(255,255,255,.8);
+    background-color: rgba(255,255,255,.9);
+    backdrop-filter: blur(4px);
+  }
+
   .legend__button,
   .contact-button {
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.5);
     background-color: rgba(255,255,255,.85);
-    border: 1px solid rgba(255,255,255,.25);
+    backdrop-filter: blur(8px);
   }
 
   .zoom {
@@ -415,8 +446,8 @@ select:focus-visible {
   }
 
   .about-link {
-    backdrop-filter: blur(8px);
-    background-color: rgba(0,0,0,.2);
     border: 1px solid rgba(0,0,0,.05);
+    background-color: rgba(0,0,0,.2);
+    backdrop-filter: blur(8px);
   }
 }

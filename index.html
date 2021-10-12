@@ -20,16 +20,18 @@
   <div class="map" data-map></div>
 
   <div class="map-switcher">
-    <button class="map-switcher__button" data-controls-toggle="current">
-      Текущий генплан
-    </button>
+    <div class="map-toggle">
+      <button class="map-toggle__button" data-controls-toggle="current">
+        Текущий генплан
+      </button>
+  
+      <button class="map-toggle__button map-toggle__button_active" data-controls-toggle="new">
+        Новый генплан
+      </button>
+    </div>
 
-    <button class="map-switcher__button map-switcher__button_active" data-controls-toggle="new">
-      Новый генплан
-    </button>
+    <select class="map-select" data-controls-switcher></select>
   </div>
-
-  <select class="map-select" data-controls-switcher></select>
 
   <aside class="legend" data-legend>
     <div class="legend__menu" data-legend-menu></div>
