@@ -237,7 +237,7 @@ button:focus {
 .zoom__button {
   width: 45px;
   height: 48px;
-  transition: all .1s ease;
+  transition: background-color .15s ease;
   color: rgba(0, 0, 0, .75);
   font-size: 32px;
 }
@@ -274,7 +274,7 @@ button:focus {
   min-width: 170px;
   padding: 10px 28px;
   transform: translateX(-50%);
-  transition: all .225s ease;
+  transition: background-color .15s ease;
   border: 0;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, .9);
