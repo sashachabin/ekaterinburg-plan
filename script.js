@@ -68,8 +68,20 @@ zoomInButton.addEventListener('click', () => viewer.zoom(VIEWER_ZOOM_RATIO));
 const zoomOutButton = query('[data-controls-zoom-out]');
 zoomOutButton.addEventListener('click', () => viewer.zoom(-VIEWER_ZOOM_RATIO));
 
-document.addEventListener('keyup', ({ key }) => {
+document.addEventListener('keyup', ({ shiftKey, key }) => {
   switch (key) {
+    case 'ArrowUp':
+      shiftKey && viewer.move(0, 250 * viewer.imageData.ratio);
+      break;
+    case 'ArrowDown':
+      shiftKey && viewer.move(0, -250 * viewer.imageData.ratio);
+      break;
+    case 'ArrowLeft':
+      shiftKey && viewer.move(250 * viewer.imageData.ratio, 0);
+      break;
+    case 'ArrowRight':
+      shiftKey && viewer.move(-250 * viewer.imageData.ratio, 0);
+      break;
     case '+':
     case '=':
       viewer.zoom(+VIEWER_ZOOM_RATIO);
@@ -77,6 +89,7 @@ document.addEventListener('keyup', ({ key }) => {
     case '-':
       viewer.zoom(-VIEWER_ZOOM_RATIO);
       break;
+    case 'Escape':
     case '0':
       viewer.zoomTo(VIEWER_ZOOM_INITIAL);
       break;
