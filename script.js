@@ -1,5 +1,6 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
+const VIEWER_SHOW_TIMEOUT = 3000;
 
 const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
 const OLD_PLAN_TITLE = PLANS.find(x => x.old)['title'];
@@ -25,6 +26,18 @@ const [planImage, legendImage] = ['map', 'legend']
 query('[data-map]').appendChild(planImage);
 query('[data-legend-menu]').appendChild(legendImage);
 
+/* Loader */
+
+const loader = query('[data-loader]');
+
+const showLoader = () => {
+  loader.style.display = 'block';
+}
+
+const hideLoader = () => {
+  loader.style.display = 'none';
+}
+
 /* Viewer */
 
 const viewer = new Viewer(planImage, {
@@ -42,7 +55,6 @@ const viewer = new Viewer(planImage, {
   toggleOnDblclick: false,
   slideOnTouch: false,
   tooltip: false,
-  isShown: false,
   transition: true,
   zoomRatio: VIEWER_ZOOM_RATIO,
   maxZoomRatio: 4.5,
@@ -54,9 +66,11 @@ const viewer = new Viewer(planImage, {
         ? windowHeight / viewer.imageData.naturalHeight
         : windowWidth / viewer.imageData.naturalWidth;
 
+    // BUG Prevent viewer.reset() on window resize 
     viewer.isShown = false;
     planImage.style.display = 'none';
     viewer.zoomTo(minZoomRatio * 2);
+    setTimeout(() => hideLoader(), VIEWER_SHOW_TIMEOUT);
   },
 });
 
@@ -124,11 +138,13 @@ const setPlan = title => {
 
   setTimeout(() => {
     image.src = mapUrl;
-    image.style.opacity = 0.2;
+    image.style.opacity = 0.1;
+    showLoader();
   }, 0);
 
   image.onload = () => {
     image.style.opacity = 1;
+    hideLoader();
   };
 };
 
