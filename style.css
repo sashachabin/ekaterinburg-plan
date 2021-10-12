@@ -253,7 +253,9 @@ button:focus {
   display: inline-block;
   position: fixed;
   z-index: 2;
-  bottom: 34px;
+  min-width: 170px;
+  text-align: center;
+  bottom: 38px;
   left: 50%;
   padding: 10px 28px;
   transform: translateX(-50%);
@@ -273,7 +275,7 @@ button:focus {
 
 @media screen and (min-width: 991px) {
   .contact-button {
-    right: 24px;
+    right: 32px;
     left: auto;
     transform: none;
   }
@@ -286,6 +288,11 @@ button:focus {
   bottom: 10px;
   color: white;
   font-size: 13px;
+  background: rgb(0 0 0 / 14%);
+  border-radius: 4px;
+  text-align: center;
+  padding: 2px 11px;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 991px) {
