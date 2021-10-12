@@ -142,7 +142,11 @@ PLANS.filter(({ old }) => !old)
   .forEach(option => newPlanSelect.appendChild(option));
 
 newPlanSelect.value = INITIAL_PLAN_TITLE;
-newPlanSelect.addEventListener('change', ({ target }) => setPlan(target.value));
+newPlanSelect.addEventListener('change', ({ target }) => {
+  // Remove focus-visible on select after click
+  newPlanSelect.blur();
+  setPlan(target.value)
+});
 
 planToggleNew.addEventListener('click', () => {
   newPlanSelect.disabled = false;
