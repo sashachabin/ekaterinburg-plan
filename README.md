@@ -21,9 +21,9 @@
   ```js
   const PLANS = [
     {
-      title: "Общественный транспорт",
-      map: "plan-public-transport.jpg",
-      legend: "legend-new.jpg"
+      title: 'Общественный транспорт',
+      map: 'plan-public-transport.jpg',
+      legend: 'legend-new.jpg'
     }
     ...
   ];
