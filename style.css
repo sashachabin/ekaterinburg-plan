@@ -186,16 +186,16 @@ button:focus {
 .legend__button {
   display: inline-block;
   position: absolute;
-  bottom: 50%;
+  top: 50%;
   right: -92px;
   padding: 12px 40px;
+  transform: translateY(-50%) rotate(-90deg);
   transition: background-color .15s ease;
   border: 0;
+  border-radius: 0 0 8px 8px;
   background-color: rgba(255, 255, 255, .88);
   box-shadow: -2px 2px 2px rgba(0, 0, 0, .45);
   font-size: 16px;
-  border-radius: 0 0 8px 8px;
-  transform: translateY(50%) rotate(-90deg);
 }
 
 .legend__button:hover {
@@ -226,7 +226,7 @@ button:focus {
   position: fixed;
   z-index: 1;
   top: 50%;
-  right: 8px;
+  right: 10px;
   flex-direction: column;
   transform: translate(0, -50%);
   border-radius: 50px;
