@@ -1,8 +1,8 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
 
-const INITIAL_PLAN_TITLE = PLANS.find(({ old }) => !old)['title'];
-const OLD_PLAN_TITLE = PLANS.find(({ old }) => old)['title'];
+const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
+const OLD_PLAN_TITLE = PLANS.find(x => x.old)['title'];
 
 /* Utils */
 

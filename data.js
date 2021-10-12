@@ -9,6 +9,7 @@ const PLANS = [
     title: 'Фукнциональные зоны',
     map: 'plan-functional-zones.png',
     legend: 'legend-functional-zones.png',
+    default: true,
   },
   {
     title: 'Общественный транспорт',
