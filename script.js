@@ -13,15 +13,21 @@ const getImagePath = (planTitle, key) => {
   return `./images/${image}`;
 };
 
+/* Initial images */
+
+const [planImage, legendImage] = ['map', 'legend']
+  .map(key => [key, new Image()])
+  .map(([key, img]) => {
+    img.src = getImagePath(INITIAL_PLAN_TITLE, key);
+    return img;
+  });
+
+query('[data-map]').appendChild(planImage);
+query('[data-legend-menu]').appendChild(legendImage);
+
 /* Viewer */
 
-const image = new Image();
-image.src = getImagePath(INITIAL_PLAN_TITLE, 'map');
-
-const mapContainer = query('[data-map]');
-mapContainer.appendChild(image);
-
-const viewer = new Viewer(image, {
+const viewer = new Viewer(planImage, {
   title: false,
   navbar: false,
   backdrop: false,
@@ -49,7 +55,7 @@ const viewer = new Viewer(image, {
         : windowWidth / viewer.imageData.naturalWidth;
 
     viewer.isShown = false;
-    image.style.display = 'none';
+    planImage.style.display = 'none';
     viewer.zoomTo(minZoomRatio * 2);
   },
 });
@@ -80,7 +86,6 @@ document.addEventListener('keyup', ({ key }) => {
 /* Legend */
 
 const legend = query('[data-legend]');
-const legendImage = query('[data-legend-image]');
 const legendToggleButton = query('[data-legend-button]');
 
 const setLegend = title => {
@@ -123,6 +128,7 @@ PLANS.filter(({ old }) => !old)
   })
   .forEach(option => newPlanSelect.appendChild(option));
 
+newPlanSelect.value = INITIAL_PLAN_TITLE;
 newPlanSelect.addEventListener('change', ({ target }) => setPlan(target.value));
 
 planToggleNew.addEventListener('click', () => {
