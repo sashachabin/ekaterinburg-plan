@@ -31,5 +31,5 @@
 
 ## Авторы
 - [Алексей Кофман](https://twitter.com/alex_kofman) — идейный вдохновитель, подгтовка карт
-- [Александр Чабин](https://twitter.com/nibach) — фронт-энд разработчик
-- [Никита Коновалов](https://twitter.com/n_konovalov) — дизайнер
+- [Александр Чабин](https://twitter.com/nibach) — разработчик
+- [Никита Коновалов](https://twitter.com/n_konovalov) — дизайнер и разработчик
