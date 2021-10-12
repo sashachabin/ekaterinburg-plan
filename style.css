@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: #303030;
   color: black;
@@ -73,6 +83,7 @@ button:focus {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 14px;
   appearance: none;
+  border: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
@@ -137,17 +148,25 @@ button:focus {
   cursor: auto;
 }
 
-.legend__menu {
+.legend {
   position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
   width: 37vw;
   height: 100vh;
+  transform: translateX(calc(-100% - 5px));
+  transition: transform .15s ease;
+}
+
+.legend__menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   padding: 0 8px 0 0;
   overflow: auto;
-  transform: translateX(calc(-92vw - 9px));
-  transition: transform .275s;
   background: white;
   box-shadow: 1px 0 15px rgba(0,0,0.05);
 }
@@ -159,45 +178,39 @@ button:focus {
 
 .legend__button {
   display: inline-block;
-  position: fixed;
-  z-index: 2;
+  position: absolute;
   bottom: 50%;
-  left: 0;
-  padding: 10px 28px;
-  transform: translate(-43px, 70%) rotate(-90deg);
-  transition: all .225s ease;
+  right: -92px;
+  padding: 12px 40px;
+  transition: background-color .15s ease;
   border: 0;
-  border-radius: 0 0 16px 16px;
-  background-color: rgba(255, 255, 255, .85);
-  box-shadow: -2px 2px 2px rgba(0, 0, 0, .4);
-  font-size: 17px;
+  background-color: rgba(255, 255, 255, .88);
+  box-shadow: -2px 2px 2px rgba(0, 0, 0, .45);
+  font-size: 16px;
+  border-radius: 0 0 8px 8px;
+  transform: translateY(50%) rotate(-90deg);
 }
 
 .legend__button:hover {
   background-color: rgba(255, 255, 255, 1);
 }
 
-.legend_open .legend__menu {
-  width: 92vw;
+.legend_open {
+  width: calc(100vw - 50px);
   transform: translateX(0);
 }
 
-.legend_open .legend__button {
-  transform: translate(calc(92vw - 32px), 50%) rotate(-90deg);
-}
-
-.legend_open .legend__menu img {
+.legend_open img {
   display: block;
 }
 
-@media screen and (min-width: 1200px) {
-  .legend_open .legend__menu {
-    width: 37vw;
-  }
+.legend_open .legend__button {
+  background-color: white;
+}
 
-  .legend_open .legend__button {
-    transform: translate(calc(37vw - 33px), 50%) rotate(-90deg);
-    transition: transform .175s;
+@media screen and (min-width: 1200px) {
+  .legend_open {
+    width: 37vw;
   }
 }
 
@@ -248,7 +261,7 @@ button:focus {
 .contact-button {
   display: inline-block;
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   bottom: 38px;
   left: 50%;
   min-width: 170px;
