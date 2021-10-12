@@ -6,7 +6,7 @@ const OLD_PLAN_TITLE = PLANS.find(({ old }) => old)['title'];
 
 /* Utils */
 
-const qs = selector => document.querySelector(selector);
+const query = selector => document.querySelector(selector);
 
 const getImagePath = (planTitle, key) => {
   const image = PLANS.find(({ title }) => title === planTitle)[key];
@@ -18,7 +18,7 @@ const getImagePath = (planTitle, key) => {
 const image = new Image();
 image.src = getImagePath(INITIAL_PLAN_TITLE, 'map');
 
-const mapContainer = qs('[data-map]');
+const mapContainer = query('[data-map]');
 mapContainer.appendChild(image);
 
 const viewer = new Viewer(image, {
@@ -56,10 +56,10 @@ const viewer = new Viewer(image, {
 
 /* Zoom */
 
-const zoomInButton = qs('[data-controls-zoom-in]');
+const zoomInButton = query('[data-controls-zoom-in]');
 zoomInButton.addEventListener('click', () => viewer.zoom(VIEWER_ZOOM_RATIO));
 
-const zoomOutButton = qs('[data-controls-zoom-out]');
+const zoomOutButton = query('[data-controls-zoom-out]');
 zoomOutButton.addEventListener('click', () => viewer.zoom(-VIEWER_ZOOM_RATIO));
 
 document.addEventListener('keyup', ({ key }) => {
@@ -74,9 +74,9 @@ document.addEventListener('keyup', ({ key }) => {
 
 /* Legend */
 
-const legend = qs('[data-legend]');
-const legendImage = qs('[data-legend-image]');
-const legendToggleButton = qs('[data-legend-button]');
+const legend = query('[data-legend]');
+const legendImage = query('[data-legend-image]');
+const legendToggleButton = query('[data-legend-button]');
 
 const setLegend = title => {
   legendImage.src = getImagePath(title, 'legend');
@@ -88,15 +88,15 @@ legendToggleButton.addEventListener('click', () =>
 
 /* Plans */
 
-const planToggleCurrent = qs('[data-controls-toggle="current"]');
-const planToggleNew = qs('[data-controls-toggle="new"]');
-const newPlanSelect = qs('[data-controls-switcher]');
+const planToggleCurrent = query('[data-controls-toggle="current"]');
+const planToggleNew = query('[data-controls-toggle="new"]');
+const newPlanSelect = query('[data-controls-switcher]');
 
 const setPlan = title => {
   setLegend(title);
 
   const mapUrl = getImagePath(title, 'map');
-  const image = qs('.viewer-canvas img');
+  const image = query('.viewer-canvas img');
   image.style.opacity = 0.99;
 
   setTimeout(() => {
