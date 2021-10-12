@@ -1,20 +1,25 @@
 const VIEWER_ZOOM_RATIO = 0.6;
+const VIEWER_ZOOM_INITIAL = 0;
 
-const mapContainer = document.querySelector('[data-map]')
-const zoomInButton = document.querySelector('[data-controls-zoom-in]');
-const zoomOutButton = document.querySelector('[data-controls-zoom-out]');
-const planToggleCurrent = document.querySelector('[data-controls-toggle="current"]');
-const planToggleNew = document.querySelector('[data-controls-toggle="new"]');
-const newPlanSelect = document.querySelector('[data-controls-switcher]');
-const legend = document.querySelector('[data-legend]');
-const legendToggleButton = document.querySelector('[data-legend-button]');
+const INITIAL_PLAN_TITLE = PLANS.find(({ old }) => !old)['title'];
+const OLD_PLAN_TITLE = PLANS.find(({ old }) => old)['title'];
+
+/* Utils */
+
+const qs = selector => document.querySelector(selector);
+
+const getImagePath = (planTitle, key) => {
+  const image = PLANS.find(({ title }) => title === planTitle)[key];
+  return `./images/${image}`;
+};
+
+/* Viewer */
 
 const image = new Image();
-image.src = getImagePath(PLANS.find(plan => plan.title === "Фукнциональные зоны").map);
-mapContainer.appendChild(image);
+image.src = getImagePath(INITIAL_PLAN_TITLE, 'map');
 
-const windowHeight = window.innerHeight;
-const windowWidth = window.innerWidth;
+const mapContainer = qs('[data-map]');
+mapContainer.appendChild(image);
 
 const viewer = new Viewer(image, {
   title: false,
@@ -31,106 +36,100 @@ const viewer = new Viewer(image, {
   toggleOnDblclick: false,
   slideOnTouch: false,
   tooltip: false,
-  // Disable this.update()
   isShown: false,
   transition: true,
   zoomRatio: VIEWER_ZOOM_RATIO,
   maxZoomRatio: 4.5,
-  minZoomRatio: .21,
+  minZoomRatio: 0.21,
   viewed() {
-    const minZoomRatio = windowHeight > windowWidth
-      ? windowHeight / viewer.imageData.naturalHeight
-      : windowWidth / viewer.imageData.naturalWidth;
+    const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
+    const minZoomRatio =
+      windowHeight > windowWidth
+        ? windowHeight / viewer.imageData.naturalHeight
+        : windowWidth / viewer.imageData.naturalWidth;
 
     viewer.isShown = false;
-    viewer.zoomTo(minZoomRatio * 2);
     image.style.display = 'none';
-  }
+    viewer.zoomTo(minZoomRatio * 2);
+  },
 });
 
-zoomInButton.addEventListener('click', () => {
-  viewer.zoom(VIEWER_ZOOM_RATIO);
-});
+/* Zoom */
 
-zoomOutButton.addEventListener('click', () => {
-  viewer.zoom(-VIEWER_ZOOM_RATIO);
-});
+const zoomInButton = qs('[data-controls-zoom-in]');
+zoomInButton.addEventListener('click', () => viewer.zoom(VIEWER_ZOOM_RATIO));
+
+const zoomOutButton = qs('[data-controls-zoom-out]');
+zoomOutButton.addEventListener('click', () => viewer.zoom(-VIEWER_ZOOM_RATIO));
 
 document.addEventListener('keyup', ({ key }) => {
-  switch (key) {
-    case "-":
-      viewer.zoom(-VIEWER_ZOOM_RATIO);
-      break;
+  const actions = {
+    '0': () => viewer.zoomTo(VIEWER_ZOOM_INITIAL),
+    '-': () => viewer.zoom(-VIEWER_ZOOM_RATIO),
+    '=': () => viewer.zoom(+VIEWER_ZOOM_RATIO),
+  };
 
-    case "=":
-      viewer.zoom(VIEWER_ZOOM_RATIO);
-      break;
-
-    case "0":
-      viewer.zoomTo(VIEWER_ZOOM_INITIAL);
-      break;
-    default: ;
-  }
+  if (key in actions) actions[key]();
 });
 
-legendToggleButton.addEventListener('click', () => {
-  const isMenuOpen = legend.classList.contains('legend_open');
+/* Legend */
 
-  if (isMenuOpen) {
-    legend.classList.remove('legend_open');
-  } else {
-    legend.classList.add('legend_open');
-  }
-});
+const legend = qs('[data-legend]');
+const legendImage = qs('[data-legend-image]');
+const legendToggleButton = qs('[data-legend-button]');
 
-planToggleCurrent.addEventListener('click', () => {
-  newPlanSelect.disabled = true;
-  planToggleNew.classList.remove('map-switcher__button_active');
-  planToggleCurrent.classList.add('map-switcher__button_active');
-  setPlan("Старый генплан");
-  setLegend("Старый генплан");
-})
+const setLegend = title => {
+  legendImage.src = getImagePath(title, 'legend');
+};
+
+legendToggleButton.addEventListener('click', () =>
+  legend.classList.toggle('legend_open')
+);
+
+/* Plans */
+
+const planToggleCurrent = qs('[data-controls-toggle="current"]');
+const planToggleNew = qs('[data-controls-toggle="new"]');
+const newPlanSelect = qs('[data-controls-switcher]');
+
+const setPlan = title => {
+  setLegend(title);
+
+  const mapUrl = getImagePath(title, 'map');
+  const image = qs('.viewer-canvas img');
+  image.style.opacity = 0.99;
+
+  setTimeout(() => {
+    image.src = mapUrl;
+    image.style.opacity = 0.2;
+  }, 0);
+
+  image.onload = () => {
+    image.style.opacity = 1;
+  };
+};
+
+PLANS.filter(({ old }) => !old)
+  .map(plan => {
+    const option = document.createElement('option');
+    option.text = plan.title;
+    option.value = plan.title;
+    return option;
+  })
+  .forEach(option => newPlanSelect.appendChild(option));
+
+newPlanSelect.addEventListener('change', ({ target }) => setPlan(target.value));
 
 planToggleNew.addEventListener('click', () => {
   newPlanSelect.disabled = false;
   planToggleCurrent.classList.remove('map-switcher__button_active');
   planToggleNew.classList.add('map-switcher__button_active');
   setPlan(newPlanSelect.value);
-  setLegend(newPlanSelect.value);
-})
-
-PLANS.filter(plan => !plan.old).map(plan => {
-  const option = document.createElement('option');
-  option.text = plan.title;
-  option.value = plan.title;
-  newPlanSelect.appendChild(option)
 });
 
-newPlanSelect.addEventListener('change', (e) => {
-  setPlan(e.target.value);
-  setLegend(e.target.value);
-})
-
-function setPlan(title) {
-  const image = document.querySelector('.viewer-canvas img');
-  const mapUrl = getImagePath(PLANS.find(plan => title === plan.title).map);
-  image.style.opacity = .99;
-
-  setTimeout(() => {
-    image.src = mapUrl;
-    image.style.opacity = .2;
-  }, 0);
-
-  image.onload = () => {
-    image.style.opacity = 1;
-  }
-}
-
-function setLegend(title) {
-  const legendUrl = getImagePath(PLANS.find(plan => title === plan.title).legend);
-  document.querySelector('[data-legend-image]').src = legendUrl;
-}
-
-function getImagePath(image) {
-  return `./images/${image}`;
-}
+planToggleCurrent.addEventListener('click', () => {
+  newPlanSelect.disabled = true;
+  planToggleNew.classList.remove('map-switcher__button_active');
+  planToggleCurrent.classList.add('map-switcher__button_active');
+  setPlan(OLD_PLAN_TITLE);
+});
