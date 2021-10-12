@@ -138,7 +138,7 @@ button:focus {
 
 @media screen and (min-width: 991px) {
   .map-switcher__button {
-  font-size: 14px;
+    font-size: 14px;
   }
 }
 
@@ -278,7 +278,7 @@ button:focus {
   border: 0;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, .9);
-  box-shadow: 0 4px 7px rgb(0 0 0 / 40%);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, .4);
   color: #1a1a1a;
   font-size: 16px;
   text-align: center;
@@ -305,7 +305,7 @@ button:focus {
   padding: 2px 11px;
   transform: translate(-50%);
   border-radius: 4px;
-  background: rgb(0 0 0 / 14%);
+  background: rgba(0, 0, 0, .14);
   color: white;
   font-size: 13px;
   text-align: center;
