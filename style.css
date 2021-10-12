@@ -54,11 +54,6 @@ select:focus-visible {
   will-change: contents;
 }
 
-.map img {
-  box-shadow: 0 0 65px rgba(0,0,0,.5);
-  aspect-ratio: 1 / 1;
-}
-
 .map > img {
   transform: translateZ(0);
   opacity: .01;
@@ -69,7 +64,7 @@ select:focus-visible {
 @keyframes fadeIn {
   from {
     opacity: 0;
-  }
+}
 
   to {
     opacity: 1;
@@ -92,6 +87,13 @@ select:focus-visible {
   .map-switcher {
     flex-wrap: nowrap;
     column-gap: 8px;
+    transition: transform .2s ease;
+  }
+
+  .map-switcher_right {
+    right: 0;
+    left: auto;
+    transform: translate3d(-28px, 0, 0);
   }
 }
 
@@ -221,7 +223,7 @@ select:focus-visible {
   right: -92px;
   padding: 12px 40px;
   transform: translateY(-50%) rotate(-90deg);
-  transition: background-color .15s ease;
+  transition: background-color .175s ease;
   border: 0;
   border-radius: 0 0 8px 8px;
   background-color: rgba(255, 255, 255, .88);
@@ -276,7 +278,7 @@ select:focus-visible {
 
 @media screen and (min-width: 991px) {
   .zoom {
-    right: 24px;
+    right: 28px;
   }
 }
 
@@ -327,7 +329,7 @@ select:focus-visible {
 
 @media screen and (min-width: 991px) {
   .contact-button {
-    right: 32px;
+    right: 28px;
     left: auto;
     transform: none;
   }
@@ -349,7 +351,7 @@ select:focus-visible {
 
 @media screen and (min-width: 991px) {
   .about-link {
-    right: 32px;
+    right: 28px;
     left: auto;
     transform: none;
   }
@@ -416,7 +418,7 @@ select:focus-visible {
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(24px, 0);
+    transform: translate(28px, 0);
   }
 }
 

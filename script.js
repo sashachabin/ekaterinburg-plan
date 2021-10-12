@@ -1,6 +1,6 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
-const VIEWER_SHOW_TIMEOUT = 3000;
+const VIEWER_SHOW_TIMEOUT = 1000;
 
 const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
 const OLD_PLAN_TITLE = PLANS.find(x => x.old)['title'];
@@ -114,14 +114,16 @@ document.addEventListener('keyup', ({ shiftKey, key }) => {
 
 const legend = query('[data-legend]');
 const legendToggleButton = query('[data-legend-button]');
+const switcher = query('[data-switcher]');
 
 const setLegend = title => {
   legendImage.src = getImagePath(title, 'legend');
 };
 
-legendToggleButton.addEventListener('click', () =>
-  legend.classList.toggle('legend_open')
-);
+legendToggleButton.addEventListener('click', () => {
+  legend.classList.toggle('legend_open');
+  switcher.classList.toggle('map-switcher_right');
+});
 
 /* Plans */
 
@@ -134,11 +136,10 @@ const setPlan = title => {
 
   const mapUrl = getImagePath(title, 'map');
   const image = query('.viewer-canvas img');
-  image.style.opacity = 0.99;
 
   setTimeout(() => {
+    image.style.opacity = 0.2;
     image.src = mapUrl;
-    image.style.opacity = 0.1;
     showLoader();
   }, 0);
 
