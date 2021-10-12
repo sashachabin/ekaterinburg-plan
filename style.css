@@ -60,6 +60,9 @@ select:focus-visible {
   box-shadow: none;
 }
 
+.map img {
+  aspect-ratio: 1 / 1;
+}
 
 @keyframes fadeIn {
   from {
