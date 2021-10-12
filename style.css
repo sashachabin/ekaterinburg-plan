@@ -236,7 +236,7 @@ select:focus-visible {
   flex-direction: column;
   transform: translate(0, -50%);
   border-radius: 50px;
-  background-color: #FFFFFF;
+  background: rgba(255, 255, 255, .95);
   box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
 }
 
@@ -244,6 +244,7 @@ select:focus-visible {
   width: 45px;
   height: 48px;
   transition: background-color .15s ease;
+  background: rgba(255,255,255,.45);
   color: rgba(0, 0, 0, .75);
   font-size: 32px;
 }
@@ -254,9 +255,12 @@ select:focus-visible {
   }
 }
 
-.zoom__button:hover,
+.zoom__button:hover{
+  background: rgba(0, 0, 0, 0.025);
+}
+
 .zoom__button:active {
-  background-color: #E0E0E0;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .zoom__button_plus {
@@ -388,5 +392,31 @@ select:focus-visible {
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+
+@supports (backdrop-filter: blur(5px)) {
+  .map-switcher {
+    backdrop-filter: blur(8px);
+    background-color: rgba(225, 225, 225, .7);
+    border: 1px solid rgba(255,255,255,.1);
+  }
+
+  .map-select,
+  .legend__button,
+  .contact-button {
+    backdrop-filter: blur(8px);
+    background-color: rgba(255,255,255,.85);
+    border: 1px solid rgba(255,255,255,.25);
+  }
+
+  .zoom {
+    background-color: rgba(255,255,255,.9);
+  }
+
+  .about-link {
+    backdrop-filter: blur(8px);
+    background-color: rgba(0,0,0,.2);
+    border: 1px solid rgba(0,0,0,.05);
   }
 }
