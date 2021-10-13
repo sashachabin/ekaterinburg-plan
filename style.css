@@ -441,22 +441,10 @@ select:focus-visible {
     backdrop-filter: blur(8px);
   }
 
-
   .map-select {
     border: 1px solid rgba(255,255,255,.8);
     background-color: rgba(255,255,255,.9);
-    backdrop-filter: blur(4px);
-  }
-
-  .legend__button,
-  .contact-button {
-    border: 1px solid rgba(255,255,255,.5);
-    background-color: rgba(255,255,255,.85);
     backdrop-filter: blur(8px);
-  }
-
-  .zoom {
-    background-color: rgba(255,255,255,.9);
   }
 
   .about-link {
