@@ -45,6 +45,17 @@ select:focus-visible {
   will-change: contents;
 }
 
+.map img {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+.map > img {
+  opacity: .001;
+  width: 8000px;
+  height: 8000px;
+}
+
 .map,
 .viewer-container {
   position: fixed;
@@ -58,13 +69,6 @@ select:focus-visible {
 .viewer-container img {
   aspect-ratio: 1 / 1;
   opacity: 0;
-}
-
-.map > img {
-  opacity: .001;
-  width: 8000px;
-  height: 8000px;
-  transform: translateZ(0);
 }
 
 @keyframes fadeIn {
