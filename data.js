@@ -1,6 +1,6 @@
 const PLANS = [
   {
-    title: 'Старый генплан',
+    title: 'Текущий генплан',
     map: 'plan-current.jpg',
     legend: 'legend-current.jpg',
     old: true,

@@ -1,6 +1,7 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
 const VIEWER_SHOW_TIMEOUT = 450;
+const YM_COUNTER = 85861499;
 
 const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
 const OLD_PLAN_TITLE = PLANS.find(x => x.old)['title'];
@@ -10,6 +11,8 @@ const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
 /* Utils */
 
 const query = selector => document.querySelector(selector);
+
+const sendAnalytics = eventName => window.ym && ym(YM_COUNTER, 'reachGoal', eventName);
 
 const getImagePath = (planTitle, key) => {
   const image = PLANS.find(({ title }) => title === planTitle)[key];
@@ -151,6 +154,8 @@ const setPlan = title => {
     image.style.opacity = 1;
     hideLoader();
   };
+
+  sendAnalytics(title);
 };
 
 PLANS.filter(({ old }) => !old)
