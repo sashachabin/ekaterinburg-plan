@@ -41,19 +41,17 @@ select:focus-visible {
   outline: 2px solid rgba(0,0,0,.9);
 }
 
-.map {
-  will-change: contents;
-}
-
 .map img {
   -webkit-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
+  aspect-ratio: 1 / 1;
 }
 
+/* Fixed size image onload */
 .map > img {
+  width: 100vw;
+  height: 100vw;
   opacity: .001;
-  width: 8000px;
-  height: 8000px;
 }
 
 .map,
@@ -67,8 +65,11 @@ select:focus-visible {
 }
 
 .viewer-container img {
-  aspect-ratio: 1 / 1;
   opacity: 0;
+}
+
+.viewer-move {
+  will-change: contents;
 }
 
 @keyframes fadeIn {
@@ -218,7 +219,6 @@ select:focus-visible {
   width: 100%;
   height: 100%;
   padding: 0 8px 0 0;
-  overflow: auto;
   background: white;
   box-shadow: 1px 0 15px rgba(0,0,0.05);
 }

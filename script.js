@@ -1,6 +1,6 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
-const VIEWER_SHOW_TIMEOUT = 450;
+const VIEWER_SHOW_TIMEOUT = 500;
 const YM_COUNTER = 85861499;
 
 const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
@@ -30,8 +30,6 @@ const [planImage, legendImage] = ['map', 'legend']
 
 query('[data-map]').appendChild(planImage);
 query('[data-legend-menu]').appendChild(legendImage);
-
-planImage.onload = () => planImage.style.display = 'none';
 
 /* Loader */
 
@@ -75,11 +73,16 @@ const viewer = new Viewer(planImage, {
     viewer.isShown = false;
     const image = query('.viewer-canvas img');
     viewer.zoomTo(minZoomRatio);
-    setTimeout(() => {
-      image.style.opacity = 1;
-    }, VIEWER_SHOW_TIMEOUT);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        planImage.style.display = 'none';
+        image.style.opacity = 1;
+        hideLoader();
+      }, VIEWER_SHOW_TIMEOUT);
+    });
   },
 });
+
 
 /* Zoom */
 
