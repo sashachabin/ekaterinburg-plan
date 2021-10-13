@@ -39,9 +39,14 @@ select:focus-visible {
   outline: 2px solid rgba(0,0,0,.9);
 }
 
+.map {
+  will-change: contents;
+}
+
 .map,
 .viewer-container {
   position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100vw !important;
@@ -50,18 +55,14 @@ select:focus-visible {
 
 .viewer-container img {
   aspect-ratio: 1 / 1;
-  visibility: hidden;
   opacity: 0;
 }
 
 .map > img {
   opacity: .001;
-  width: 200vmax;
-  height: 200vmax;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%,-50%, 0);
+  width: 8000px;
+  height: 8000px;
+  transform: translateZ(0);
 }
 
 @keyframes fadeIn {
@@ -75,8 +76,9 @@ select:focus-visible {
 }
 
 .map-switcher {
+  position: absolute;
+  z-index: 2;
   display: flex;
-  position: fixed;
   top: 16px;
   left: 50%;
   flex-wrap: wrap;
@@ -102,7 +104,6 @@ select:focus-visible {
 
 .map-select {
   display: inline-block;
-  z-index: 1;
   max-width: 300px;
   height: 50px;
   padding-right: 34px;
@@ -142,7 +143,6 @@ select:focus-visible {
 
 .map-toggle {
   display: flex;
-  z-index: 1;
   top: 0;
   left: 50%;
   flex-grow: 1;
@@ -193,7 +193,7 @@ select:focus-visible {
 
 .legend {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 37vw;
@@ -222,6 +222,7 @@ select:focus-visible {
 .legend__button {
   display: inline-block;
   position: absolute;
+  z-index: 1;
   top: 50%;
   right: -92px;
   padding: 12px 40px;
@@ -259,8 +260,8 @@ select:focus-visible {
 
 .zoom {
   display: flex;
-  position: fixed;
-  z-index: 1;
+  position: absolute;
+  z-index: 2;
   top: 50%;
   right: 10px;
   flex-direction: column;
@@ -307,8 +308,8 @@ select:focus-visible {
 
 .contact-button {
   display: inline-block;
-  position: fixed;
-  z-index: 1;
+  position: absolute;
+  z-index: 2;
   bottom: 38px;
   left: 50%;
   min-width: 170px;
@@ -339,7 +340,8 @@ select:focus-visible {
 }
 
 .about-link {
-  position: fixed;
+  position: absolute;
+  z-index: 2;
   bottom: 10px;
   left: 50%;
   padding: 2px 11px;
@@ -362,7 +364,8 @@ select:focus-visible {
 
 .loader {
   display: inline-block;
-  position: fixed;
+  position: absolute;
+  z-index: 1;
   top: 50%;
   left: 50%;
   width: 80px;
