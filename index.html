@@ -3,13 +3,36 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Генплан Екатеринбурга</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="./style.css">
+  
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="./images/favicon.png" />
+  
+  <title>Генплан Екатеринбурга 2025</title>
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Генплан Екатеринбурга 2025">
+  <meta name="description" content="Карта с изменениями в генеральном плане Екатеринбурга. Принять участие в общественных слушаниях можно до 19 октября.">
+ 
   <link rel="preload" href="./images/plan-current.jpg" as="image">
   <link rel="preload" href="./images/plan-functional-zones.png" as="image">
+  <link rel="stylesheet" href="./style.css">
   <link rel="preconnect" href="//mc.yandex.ru/metrika/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://map.genplanekb.city/">
+  <meta property="og:title" content="Генплан Екатеринбурга 2025">
+  <meta property="og:description" content="Карта с изменениями в генеральном плане Екатеринбурга. Принять участие в общественных слушаниях можно до 19 октября.">
+  <meta property="og:image" content="./images/preview.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://map.genplanekb.city/">
+  <meta property="twitter:title" content="Генплан Екатеринбурга 2025">
+  <meta property="twitter:description" content="Карта с изменениями в генеральном плане Екатеринбурга. Принять участие в общественных слушаниях можно до 19 октября.">
+  <meta property="twitter:image" content="./images/preview.png">
 </head>
 
 <body>
@@ -22,7 +45,7 @@
       <button class="map-toggle__button" data-controls-toggle="current">
         Текущий генплан
       </button>
-  
+
       <button class="map-toggle__button map-toggle__button_active" data-controls-toggle="new">
         Новый генплан
       </button>
@@ -38,12 +61,15 @@
 
   <div class="zoom">
     <button class="zoom__button zoom__button_plus" data-controls-zoom-in title="Увеличить масштаб (+)">&#43;</button>
-    <button class="zoom__button zoom__button_minus" data-controls-zoom-out title="Уменьшить масштаб (-)">&#8722;</button>
+    <button class="zoom__button zoom__button_minus" data-controls-zoom-out
+      title="Уменьшить масштаб (-)">&#8722;</button>
   </div>
 
-  <a href="http://genplanekb.city/#rec366063591" class="contact-button" target="_blank" tabindex="0">Оставить предложение</a>
+  <a href="http://genplanekb.city/#rec366063591" class="contact-button" target="_blank" tabindex="0">Оставить
+    предложение</a>
 
-  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank" tabindex="0">О разработчиках карты на GitHub</a>
+  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank" tabindex="0">О
+    разработчиках карты на GitHub</a>
 
   <script src="./assets/viewer.min.js"></script>
   <script src="./data.js"></script>
@@ -51,7 +77,7 @@
   <link rel="stylesheet" href="./assets/viewer.min.css">
 
   <!-- Yandex.Metrika counter -->
-  <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym"); ym(85861499, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/85861499" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <script type="text/javascript"> (function (m, e, t, r, i, k, a) { m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) }; m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a) })(window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym"); ym(85861499, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });</script><noscript><div><img src="https://mc.yandex.ru/watch/85861499" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
 </body>
 
