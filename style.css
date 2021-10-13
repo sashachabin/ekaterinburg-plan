@@ -48,26 +48,26 @@ select:focus-visible {
   height: 100vh !important;
 }
 
-.map {
-  transform: translateZ(0);
-  animation: .15s .25s ease fadeIn both;
-  will-change: contents;
+.viewer-container img {
+  aspect-ratio: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .map > img {
-  transform: translateZ(0);
-  opacity: .01;
-  box-shadow: none;
-}
-
-.map img {
-  aspect-ratio: 1 / 1;
+  opacity: .001;
+  width: 200vmax;
+  height: 200vmax;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-50%, 0);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-}
+  }
 
   to {
     opacity: 1;

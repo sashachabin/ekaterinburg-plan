@@ -1,9 +1,11 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
-const VIEWER_SHOW_TIMEOUT = 3000;
+const VIEWER_SHOW_TIMEOUT = 500;
 
 const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
 const OLD_PLAN_TITLE = PLANS.find(x => x.old)['title'];
+
+const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
 
 /* Utils */
 
@@ -60,17 +62,20 @@ const viewer = new Viewer(planImage, {
   maxZoomRatio: 4.5,
   minZoomRatio: 0.21,
   viewed() {
-    const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
-    const minZoomRatio =
-      windowHeight > windowWidth
-        ? windowHeight / viewer.imageData.naturalHeight
-        : windowWidth / viewer.imageData.naturalWidth;
+    const minZoomRatio = windowHeight > windowWidth
+      ? windowHeight / viewer.imageData.naturalHeight * 2
+      : windowWidth / viewer.imageData.naturalWidth * 2;
 
     // BUG Prevent viewer.reset() on window resize 
     viewer.isShown = false;
-    planImage.style.display = 'none';
-    viewer.zoomTo(minZoomRatio * 2);
-    setTimeout(() => hideLoader(), VIEWER_SHOW_TIMEOUT);
+    const image = query('.viewer-canvas img');
+    viewer.zoomTo(minZoomRatio);
+    setTimeout(() => {
+      image.style.opacity = 1;
+      image.style.visibility = 'visible';
+      planImage.style.display = 'none';
+      hideLoader();
+    }, VIEWER_SHOW_TIMEOUT)
   },
 });
 
