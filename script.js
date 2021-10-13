@@ -42,7 +42,7 @@ const showLoader = () => {
 }
 
 const hideLoader = () => {
-  loader.style.display = 0;
+  loader.style.opacity = 0;
 }
 
 /* Viewer */
