@@ -1,6 +1,6 @@
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
-const VIEWER_SHOW_TIMEOUT = 500;
+const VIEWER_SHOW_TIMEOUT = 400;
 const YM_COUNTER = 85861499;
 
 const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
@@ -45,43 +45,47 @@ const hideLoader = () => {
 
 /* Viewer */
 
-const viewer = new Viewer(planImage, {
-  title: false,
-  navbar: false,
-  backdrop: false,
-  toolbar: false,
-  fullscreen: false,
-  button: false,
-  inline: true,
-  keyboard: false,
-  zIndexInline: 1,
-  rotatable: false,
-  scalable: false,
-  toggleOnDblclick: false,
-  slideOnTouch: false,
-  tooltip: false,
-  transition: true,
-  zoomRatio: VIEWER_ZOOM_RATIO,
-  maxZoomRatio: 4.5,
-  minZoomRatio: 0.21,
-  viewed() {
-    const minZoomRatio = windowHeight > windowWidth
-      ? windowHeight / viewer.imageData.naturalHeight * 2
-      : windowWidth / viewer.imageData.naturalWidth * 2;
+let viewer = null;
 
-    // BUG Prevent viewer.reset() on window resize 
-    viewer.isShown = false;
-    const image = query('.viewer-canvas img');
-    viewer.zoomTo(minZoomRatio);
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        planImage.style.display = 'none';
-        image.style.opacity = 1;
-        hideLoader();
-      }, VIEWER_SHOW_TIMEOUT);
-    });
-  },
-});
+setTimeout(() => {
+  viewer = new Viewer(planImage, {
+    title: false,
+    navbar: false,
+    backdrop: false,
+    toolbar: false,
+    fullscreen: false,
+    button: false,
+    inline: true,
+    keyboard: false,
+    zIndexInline: 1,
+    rotatable: false,
+    scalable: false,
+    toggleOnDblclick: false,
+    slideOnTouch: false,
+    tooltip: false,
+    transition: true,
+    zoomRatio: VIEWER_ZOOM_RATIO,
+    maxZoomRatio: 4.5,
+    minZoomRatio: 0.21,
+    viewed() {
+      const minZoomRatio = windowHeight > windowWidth
+        ? windowHeight / viewer.imageData.naturalHeight * 2
+        : windowWidth / viewer.imageData.naturalWidth * 2;
+  
+      // BUG Prevent viewer.reset() on window resize 
+      viewer.isShown = false;
+      const image = query('.viewer-canvas img');
+      viewer.zoomTo(minZoomRatio);
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          planImage.style.display = 'none';
+          image.style.opacity = 1;
+          hideLoader();
+        }, VIEWER_SHOW_TIMEOUT);
+      });
+    },
+  });
+})
 
 
 /* Zoom */
