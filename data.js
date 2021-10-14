@@ -6,7 +6,7 @@ const PLANS = [
     old: true,
   },
   {
-    title: 'Фукнциональные зоны',
+    title: 'Функциональные зоны',
     map: 'plan-functional-zones.png',
     legend: 'legend-functional-zones.png',
     default: true,
