@@ -50,8 +50,11 @@ select:focus-visible {
   aspect-ratio: 1 / 1;
 }
 
+/* Fixed size image onload */
 .map > img {
-  display: none;
+  width: 100vmax;
+  height: 100vmax;
+  opacity: .001;
 }
 
 .map,
@@ -62,6 +65,10 @@ select:focus-visible {
   left: 0;
   width: 100vw !important;
   height: 100vh !important;
+}
+
+.viewer-container img {
+  opacity: 0;
 }
 
 .viewer-move {
