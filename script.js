@@ -1,12 +1,13 @@
+const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_ZOOM_INITIAL = 0;
-const VIEWER_SHOW_TIMEOUT = 400;
 const YM_COUNTER = 85861499;
 
-const INITIAL_PLAN_TITLE = PLANS.find(x => x.default)['title'];
-const OLD_PLAN_TITLE = PLANS.find(x => x.old)['title'];
+const { title: INITIAL_PLAN_TITLE} = PLANS.find(x => x.default);
+const { title: OLD_PLAN_TITLE} = PLANS.find(x => x.old);
 
 const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
+const maxSideSize = Math.max(windowWidth, windowHeight);
 
 /* Utils */
 
@@ -63,26 +64,20 @@ setTimeout(() => {
     toggleOnDblclick: false,
     slideOnTouch: false,
     tooltip: false,
-    transition: true,
+    transition: false,
     zoomRatio: VIEWER_ZOOM_RATIO,
-    maxZoomRatio: 4.5,
-    minZoomRatio: 0.21,
+    maxZoomRatio: PLAN_SIZE_MAXIMIZED / maxSideSize,
+    minZoomRatio: 1,
     viewed() {
-      const minZoomRatio = windowHeight > windowWidth
-        ? windowHeight / viewer.imageData.naturalHeight * 2
-        : windowWidth / viewer.imageData.naturalWidth * 2;
+      viewer.imageData.naturalWidth = maxSideSize;
+      viewer.imageData.naturalHeight = maxSideSize;
   
-      // BUG Prevent viewer.reset() on window resize 
+      // BUG Prevent viewer.reset() on window resize
       viewer.isShown = false;
-      const image = query('.viewer-canvas img');
-      viewer.zoomTo(minZoomRatio);
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          planImage.style.display = 'none';
-          image.style.opacity = 1;
-          hideLoader();
-        }, VIEWER_SHOW_TIMEOUT);
-      });
+      viewer.zoomTo(2);
+      planImage.style.display = 'none';
+      viewer.options.transition = true;
+      hideLoader();
     },
   });
 })
