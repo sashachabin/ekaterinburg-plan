@@ -67,10 +67,6 @@ select:focus-visible {
   height: 100vh !important;
 }
 
-.viewer-container img {
-  opacity: 0;
-}
-
 .viewer-move {
   will-change: contents;
 }
