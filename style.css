@@ -115,7 +115,6 @@ select:focus-visible {
   height: 50px;
   padding-right: 34px;
   padding-left: 8px;
-  overflow: hidden;
   transition: background-color .15s ease;
   border: 0;
   border-radius: 8px;
