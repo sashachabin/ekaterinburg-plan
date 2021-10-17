@@ -1,5 +1,6 @@
 const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
+const VIEWER_LOADING_TIMEOUT = 5000;
 const YM_COUNTER = 85861499;
 
 const { title: INITIAL_PLAN_TITLE } = PLANS.find(x => x.default);
@@ -78,13 +79,25 @@ const viewer = new Viewer(planImage, {
     viewer.imageData.naturalWidth = maxSideSize;
     viewer.imageData.naturalHeight = maxSideSize;
     viewer.zoomTo(2);
-    // BUG Prevent viewer.reset() on window resize
+
+    // BUG Prevent viewerjs reset on window resize
     viewer.isShown = false;
-    image.addEventListener('animationend', () => {
+    
+    const showViewerImage = () => {
       image.style.willChange = 'none';
       image.style.opacity = 1;
       viewer.options.transition = true;
       hideLoaderText();
+    }
+    
+    // Run if 'animationend' image event doesn't fired
+    const loadingTimeout = setTimeout(() => {
+      showViewerImage()
+    }, VIEWER_LOADING_TIMEOUT);
+
+    image.addEventListener('animationend', () => {
+      showViewerImage();
+      clearTimeout(loadingTimeout);
     });
   }
 })
