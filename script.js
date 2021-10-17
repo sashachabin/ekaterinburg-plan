@@ -5,8 +5,6 @@ const YM_COUNTER = 85861499;
 const { title: INITIAL_PLAN_TITLE } = PLANS.find(x => x.default);
 const { title: OLD_PLAN_TITLE } = PLANS.find(x => x.old);
 
-const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
-const maxSideSize = Math.max(windowWidth, windowHeight);
 
 /* Utils */
 
@@ -18,6 +16,7 @@ const getImagePath = (planTitle, key) => {
   const image = PLANS.find(({ title }) => title === planTitle)[key];
   return `./images/${image}`;
 };
+
 
 /* Initial images */
 
@@ -31,6 +30,7 @@ const [planImage, legendImage] = ['map', 'legend']
 query('[data-map]').appendChild(planImage);
 query('[data-legend-menu]').appendChild(legendImage);
 
+
 /* Loader */
 
 const loader = query('[data-loader]');
@@ -41,80 +41,92 @@ const hideLoader = () => loader.style.display = 'none';
 const showLoaderText = () => loaderText.style.display = 'block';
 const hideLoaderText = () => loaderText.style.display = 'none';
 
-const minZoomRatio = windowWidth > windowHeight ? 1 : 2;
 
 /* Viewer */
+
+const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
+const maxSideSize = Math.max(windowWidth, windowHeight);
+const minZoomRatio = windowWidth > windowHeight ? 1 : 2;
+
 const viewer = new Viewer(planImage, {
-    title: false,
-    navbar: false,
-    backdrop: false,
-    toolbar: false,
-    fullscreen: false,
-    button: false,
-    inline: true,
-    keyboard: false,
-    zIndexInline: 1,
-    rotatable: false,
-    scalable: false,
-    toggleOnDblclick: false,
-    slideOnTouch: false,
-    tooltip: false,
-    transition: false,
-    zoomRatio: VIEWER_ZOOM_RATIO,
-    maxZoomRatio: PLAN_SIZE_MAXIMIZED / maxSideSize,
+  title: false,
+  navbar: false,
+  backdrop: false,
+  toolbar: false,
+  fullscreen: false,
+  button: false,
+  inline: true,
+  keyboard: false,
+  zIndexInline: 1,
+  rotatable: false,
+  scalable: false,
+  toggleOnDblclick: false,
+  slideOnTouch: false,
+  tooltip: false,
+  transition: false,
+  zoomRatio: VIEWER_ZOOM_RATIO,
+  maxZoomRatio: PLAN_SIZE_MAXIMIZED / maxSideSize,
   minZoomRatio,
   ready() {
     hideLoader();
     showLoaderText();
   },
-    viewed() {
+  viewed() {
     planImage.style.display = 'none';
     const image = query('.viewer-canvas img');
     image.style.willChange = 'transform, opacity';
-      viewer.imageData.naturalWidth = maxSideSize;
-      viewer.imageData.naturalHeight = maxSideSize;
+    viewer.imageData.naturalWidth = maxSideSize;
+    viewer.imageData.naturalHeight = maxSideSize;
     viewer.zoomTo(2);
-      // BUG Prevent viewer.reset() on window resize
-      viewer.isShown = false;
+    // BUG Prevent viewer.reset() on window resize
+    viewer.isShown = false;
     image.addEventListener('animationend', () => {
       image.style.willChange = 'none';
       image.style.opacity = 1;
       viewer.options.transition = true;
       hideLoaderText();
-  });
+    });
   }
 })
 
 
-/* Zoom */
+/* Zoom & Move */
 
-const zoomInButton = query('[data-controls-zoom-in]');
+const zoomInButton = query('[data-plan-zoom-in]');
 zoomInButton.addEventListener('click', () => viewer.zoom(VIEWER_ZOOM_RATIO));
 
-const zoomOutButton = query('[data-controls-zoom-out]');
+const zoomOutButton = query('[data-plan-zoom-out]');
 zoomOutButton.addEventListener('click', () => viewer.zoom(-VIEWER_ZOOM_RATIO));
 
 document.addEventListener('keyup', ({ shiftKey, key }) => {
+  const { imageData: { ratio } } = viewer;
+
   switch (key) {
     case 'ArrowUp':
-      shiftKey && viewer.move(0, 250 * viewer.imageData.ratio);
+      shiftKey && viewer.move(0, 250 * ratio);
       break;
+
     case 'ArrowDown':
-      shiftKey && viewer.move(0, -250 * viewer.imageData.ratio);
+      shiftKey && viewer.move(0, -250 * ratio);
       break;
+
     case 'ArrowLeft':
-      shiftKey && viewer.move(250 * viewer.imageData.ratio, 0);
+      shiftKey && viewer.move(250 * ratio, 0);
       break;
+
     case 'ArrowRight':
-      shiftKey && viewer.move(-250 * viewer.imageData.ratio, 0);
+      shiftKey && viewer.move(-250 * ratio, 0);
       break;
+
     case '+':
     case '=':
       viewer.zoom(+VIEWER_ZOOM_RATIO);
       break;
+
     case '-':
       viewer.zoom(-VIEWER_ZOOM_RATIO);
       break;
+
     case 'Escape':
     case '0':
       viewer.zoomTo(minZoomRatio);
@@ -123,26 +135,28 @@ document.addEventListener('keyup', ({ shiftKey, key }) => {
   }
 });
 
+
 /* Legend */
 
 const legend = query('[data-legend]');
-const legendToggleButton = query('[data-legend-button]');
+const legendButton = query('[data-legend-button]');
 const switcher = query('[data-switcher]');
 
 const setLegend = title => {
   legendImage.src = getImagePath(title, 'legend');
 };
 
-legendToggleButton.addEventListener('click', () => {
+legendButton.addEventListener('click', () => {
   legend.classList.toggle('legend_open');
   switcher.classList.toggle('map-switcher_right');
 });
 
+
 /* Plans */
 
-const planToggleCurrent = query('[data-controls-toggle="current"]');
-const planToggleNew = query('[data-controls-toggle="new"]');
-const newPlanSelect = query('[data-controls-switcher]');
+const planToggleCurrent = query('[data-plan-toggle="current"]');
+const planToggleNew = query('[data-plan-toggle="new"]');
+const planNewSelect = query('[data-plan-new-select]');
 
 const setPlan = title => {
   setLegend(title);
@@ -154,7 +168,7 @@ const setPlan = title => {
     image.style.opacity = 0.2;
     image.src = mapUrl;
     showLoader();
-  }, 0);
+  });
 
   image.onload = () => {
     image.style.opacity = 1;
@@ -171,24 +185,24 @@ PLANS.filter(({ old }) => !old)
     option.value = plan.title;
     return option;
   })
-  .forEach(option => newPlanSelect.appendChild(option));
+  .forEach(option => planNewSelect.appendChild(option));
 
-newPlanSelect.value = INITIAL_PLAN_TITLE;
-newPlanSelect.addEventListener('change', ({ target }) => {
+planNewSelect.value = INITIAL_PLAN_TITLE;
+planNewSelect.addEventListener('change', ({ target }) => {
   // Remove focus-visible on select after click
-  newPlanSelect.blur();
+  planNewSelect.blur();
   setPlan(target.value)
 });
 
 planToggleNew.addEventListener('click', () => {
-  newPlanSelect.disabled = false;
+  planNewSelect.disabled = false;
   planToggleCurrent.classList.remove('map-toggle__button_active');
   planToggleNew.classList.add('map-toggle__button_active');
-  setPlan(newPlanSelect.value);
+  setPlan(planNewSelect.value);
 });
 
 planToggleCurrent.addEventListener('click', () => {
-  newPlanSelect.disabled = true;
+  planNewSelect.disabled = true;
   planToggleNew.classList.remove('map-toggle__button_active');
   planToggleCurrent.classList.add('map-toggle__button_active');
   setPlan(OLD_PLAN_TITLE);
