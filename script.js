@@ -1,6 +1,5 @@
 const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
-const VIEWER_ZOOM_INITIAL = 0;
 const YM_COUNTER = 85861499;
 
 const { title: INITIAL_PLAN_TITLE} = PLANS.find(x => x.default);
@@ -40,9 +39,7 @@ const showLoader = () => {
   loader.style.opacity = 1;
 }
 
-const hideLoader = () => {
-  loader.style.opacity = 0;
-}
+const minZoomRatio = windowWidth > windowHeight ? 1 : 2;
 
 /* Viewer */
 
@@ -114,7 +111,8 @@ document.addEventListener('keyup', ({ shiftKey, key }) => {
       break;
     case 'Escape':
     case '0':
-      viewer.zoomTo(VIEWER_ZOOM_INITIAL);
+      viewer.zoomTo(minZoomRatio);
+      viewer.moveTo(0, -windowHeight / 2);
       break;
   }
 });
