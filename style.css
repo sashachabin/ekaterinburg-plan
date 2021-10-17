@@ -45,8 +45,6 @@ select:focus-visible {
 }
 
 .map img {
-  -webkit-transform: translate3d(0,0,0);
-  transform: translate3d(0,0,0);
   aspect-ratio: 1 / 1;
 }
 
@@ -67,17 +65,22 @@ select:focus-visible {
   height: 100vh !important;
 }
 
-.viewer-move {
-  will-change: contents;
+.viewer-container img {
+  animation: .8s .1s prepareForImageScaling step-end;
+  opacity: 0;
+  mix-blend-mode: hard-light;
+  filter: contrast(.95);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+@keyframes prepareForImageScaling {
+  0% {
+    transform: scale(1.2) translateZ(0);
+    opacity: .001;
   }
 
-  to {
-    opacity: 1;
+  100% {
+    transform: scale(1) translateZ(0);
+    opacity: 0;
   }
 }
 
