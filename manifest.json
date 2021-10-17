@@ -1,0 +1,8 @@
+{
+    "name": "Генплан Екатеринбурга",
+    "short_name": "Генплан Екатеринбурга",
+    "start_url": "/?pwa",
+    "display": "fullscreen",
+    "background_color": "#363636",
+    "orientation": "portrait-primary"
+  }
