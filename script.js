@@ -2,8 +2,8 @@ const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
 const YM_COUNTER = 85861499;
 
-const { title: INITIAL_PLAN_TITLE} = PLANS.find(x => x.default);
-const { title: OLD_PLAN_TITLE} = PLANS.find(x => x.old);
+const { title: INITIAL_PLAN_TITLE } = PLANS.find(x => x.default);
+const { title: OLD_PLAN_TITLE } = PLANS.find(x => x.old);
 
 const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
 const maxSideSize = Math.max(windowWidth, windowHeight);
@@ -34,19 +34,17 @@ query('[data-legend-menu]').appendChild(legendImage);
 /* Loader */
 
 const loader = query('[data-loader]');
+const loaderText = query('[data-loader-text]');
 
-const showLoader = () => {
-  loader.style.opacity = 1;
-}
+const showLoader = () => loader.style.display = 'block';
+const hideLoader = () => loader.style.display = 'none';
+const showLoaderText = () => loaderText.style.display = 'block';
+const hideLoaderText = () => loaderText.style.display = 'none';
 
 const minZoomRatio = windowWidth > windowHeight ? 1 : 2;
 
 /* Viewer */
-
-let viewer = null;
-
-setTimeout(() => {
-  viewer = new Viewer(planImage, {
+const viewer = new Viewer(planImage, {
     title: false,
     navbar: false,
     backdrop: false,
@@ -64,19 +62,27 @@ setTimeout(() => {
     transition: false,
     zoomRatio: VIEWER_ZOOM_RATIO,
     maxZoomRatio: PLAN_SIZE_MAXIMIZED / maxSideSize,
-    minZoomRatio: 1,
+  minZoomRatio,
+  ready() {
+    hideLoader();
+    showLoaderText();
+  },
     viewed() {
+    planImage.style.display = 'none';
+    const image = query('.viewer-canvas img');
+    image.style.willChange = 'transform, opacity';
       viewer.imageData.naturalWidth = maxSideSize;
       viewer.imageData.naturalHeight = maxSideSize;
-  
+    viewer.zoomTo(2);
       // BUG Prevent viewer.reset() on window resize
       viewer.isShown = false;
-      viewer.zoomTo(2);
-      planImage.style.display = 'none';
+    image.addEventListener('animationend', () => {
+      image.style.willChange = 'none';
+      image.style.opacity = 1;
       viewer.options.transition = true;
-      hideLoader();
-    },
+      hideLoaderText();
   });
+  }
 })
 
 
