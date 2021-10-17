@@ -6,8 +6,7 @@
 
 Позволяет жителям города познакомиться с изменениями в текущем и будущем генеральных планах Екатеринбурга. Подробная информация о плане и общественных слушаниях доступна на сайте [genplanekb.city](http://genplanekb.city/) и на [сайте администрации](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/348).
 
-![image](https://user-images.githubusercontent.com/22644149/137258319-c921331c-d058-46e9-9f19-39623db89fbd.png)
-
+![image](https://user-images.githubusercontent.com/22644149/137645893-c2bd0229-08c2-4d2f-9a7a-32f6399776a7.png)
 
 ## Возможности
 - Просмотр планов города с zoom и draggable
