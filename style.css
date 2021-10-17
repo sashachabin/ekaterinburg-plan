@@ -226,9 +226,9 @@ select:focus-visible {
   display: inline-block;
   position: absolute;
   z-index: 1;
-  top: 50%;
-  right: -86px;
-  padding: 16px 32px;
+  top: 60%;
+  right: -69px;
+  padding: 13px 16px;
   transform: translateY(-50%) rotate(-90deg);
   transition: background-color .175s ease;
   border: 0;
@@ -243,7 +243,7 @@ select:focus-visible {
 }
 
 .legend_open {
-  width: calc(100vw - 50px);
+  width: calc(100vw - 45px);
   transform: translateX(0);
 }
 
@@ -253,6 +253,14 @@ select:focus-visible {
 
 .legend_open .legend__button {
   background-color: white;
+}
+
+@media screen and (min-width: 768px) {
+  .legend__button {
+    top: calc(50% + 8px);
+    right: -76px;
+    padding: 16px 22px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -265,8 +273,8 @@ select:focus-visible {
   display: flex;
   position: absolute;
   z-index: 2;
-  top: 50%;
-  right: 10px;
+  top: 60%;
+  right: 8px;
   flex-direction: column;
   transform: translate(0, -50%);
   border-radius: 50px;
@@ -275,12 +283,24 @@ select:focus-visible {
 }
 
 .zoom__button {
-  width: 45px;
-  height: 48px;
+  width: 39px;
+  height: 44px;
   transition: background-color .15s ease;
   background: rgba(255,255,255,.45);
   color: rgba(0, 0, 0, .75);
-  font-size: 32px;
+  font-size: 30px;
+}
+
+@media screen and (min-width: 768px) {
+  .zoom {
+    top: 50%;
+  }
+
+  .zoom__button {
+    width: 45px;
+    height: 46px;
+    font-size: 32px;
+  }
 }
 
 @media screen and (min-width: 991px) {
@@ -324,7 +344,7 @@ select:focus-visible {
   background-color: rgba(255, 255, 255, .9);
   box-shadow: 0 4px 7px rgba(0, 0, 0, .4);
   color: #1a1a1a;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
@@ -340,6 +360,7 @@ select:focus-visible {
     left: auto;
     width: auto;
     transform: none;
+    font-size: 16px;
   }
 }
 
