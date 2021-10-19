@@ -105,11 +105,26 @@ const viewer = new Viewer(planImage, {
 
 /* Zoom & Move */
 
+const getScreenCenter = () => {
+  return {
+    pageY: window.innerWidth / 2,
+    pageX: window.innerHeight / 2
+  }
+}
+
+const zoomIn = () => {
+  viewer.zoom(+VIEWER_ZOOM_RATIO, false, getScreenCenter());
+}
+
+const zoomOut = () => {
+  viewer.zoom(-VIEWER_ZOOM_RATIO, false, getScreenCenter());
+}
+
 const zoomInButton = query('[data-plan-zoom-in]');
-zoomInButton.addEventListener('click', () => viewer.zoom(VIEWER_ZOOM_RATIO));
+zoomInButton.addEventListener('click', zoomIn);
 
 const zoomOutButton = query('[data-plan-zoom-out]');
-zoomOutButton.addEventListener('click', () => viewer.zoom(-VIEWER_ZOOM_RATIO));
+zoomOutButton.addEventListener('click', zoomOut);
 
 document.addEventListener('keyup', ({ shiftKey, key }) => {
   const { imageData: { ratio } } = viewer;
@@ -133,11 +148,11 @@ document.addEventListener('keyup', ({ shiftKey, key }) => {
 
     case '+':
     case '=':
-      viewer.zoom(+VIEWER_ZOOM_RATIO);
+      zoomIn();
       break;
 
     case '-':
-      viewer.zoom(-VIEWER_ZOOM_RATIO);
+      zoomOut();
       break;
 
     case 'Escape':
