@@ -1,39 +1,39 @@
 const PLANS = [
   {
     title: 'Текущий генплан',
-    map: 'plan-current.jpg',
-    legend: 'legend-current.jpg',
-    old: true,
+    map: 'old.plan.jpg',
+    legend: 'old.legend.jpg',
+    old: true
   },
   {
     title: 'Функциональные зоны',
-    map: 'plan-functional-zones.png',
-    legend: 'legend-functional-zones.png',
-    default: true,
+    map: 'functional-zones.plan.png',
+    legend: 'functional-zones.legend.png',
+    default: true
   },
   {
     title: 'Общественный транспорт',
-    map: 'plan-public-transport.jpg',
-    legend: 'legend-public-transport.png',
+    map: 'public-transport.plan.jpg',
+    legend: 'public-transport.legend.png',
   },
   {
     title: 'Транспортная инфраструктура',
-    map: 'plan-transport-infrastructure.jpg',
-    legend: 'legend-transport-infrastructure.jpg',
+    map: 'transport-infrastructure.plan.jpg',
+    legend: 'transport-infrastructure.legend.jpg',
   },
   {
     title: 'ОМЗ в части общественного транспорта',
-    map: 'plan-omz-public-transport.jpg',
-    legend: 'legend-omz-public-transport.jpg',
+    map: 'omz-public-transport.plan.jpg',
+    legend: 'omz-public-transport.legend.jpg',
   },
   {
     title: 'ОМЗ по работе с детьми',
-    map: 'plan-omz-children.jpg',
-    legend: 'legend-omz-children.jpg',
+    map: 'omz-children.plan.jpg',
+    legend: 'omz-children.legend.jpg',
   },
   {
     title: 'ОМЗ в области образования',
-    map: 'plan-omz-education.jpg',
-    legend: 'legend-omz-education.jpg',
+    map: 'omz-education.plan.jpg',
+    legend: 'omz-education.legend.jpg',
   },
 ];
