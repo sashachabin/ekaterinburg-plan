@@ -342,7 +342,7 @@ select:focus-visible {
   bottom: 38px;
   left: 50%;
   width: 300px;
-  padding: 10px 28px;
+  padding: 10px 30px;
   transform: translateX(-50%);
   transition: background-color .15s ease;
   border: 0;
