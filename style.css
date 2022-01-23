@@ -93,7 +93,6 @@ select:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 300px;
   transform: translate3d(-50%, 0, 0);
   row-gap: 8px;
 }
@@ -113,6 +112,7 @@ select:focus-visible {
 
 .map-select {
   display: inline-block;
+  flex-grow: 1;
   min-width: 300px;
   height: 50px;
   padding-right: 34px;
@@ -154,7 +154,6 @@ select:focus-visible {
   top: 0;
   left: 50%;
   flex-grow: 1;
-  max-width: 300px;
   padding-top: 5px;
   padding-right: 5px;
   padding-bottom: 5px;
