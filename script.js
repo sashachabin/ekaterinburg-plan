@@ -3,13 +3,14 @@ const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_LOADING_TIMEOUT = 5000;
 const YM_COUNTER = 85861499;
 
-const { title: INITIAL_PLAN_TITLE } = PLANS.find(x => x.default);
+const { title: DEFAULT_PLAN_TITLE } = PLANS.find(x => x.default);
 const { title: OLD_PLAN_TITLE } = PLANS.find(x => x.old);
 
 
 /* Utils */
 
 const query = selector => document.querySelector(selector);
+const queryAll = selector => document.querySelectorAll(selector);
 
 const sendAnalytics = eventName => window.ym && ym(YM_COUNTER, 'reachGoal', eventName);
 
@@ -24,7 +25,7 @@ const getImagePath = (planTitle, key) => {
 const [planImage, legendImage] = ['map', 'legend']
   .map(key => [key, new Image()])
   .map(([key, img]) => {
-    img.src = getImagePath(INITIAL_PLAN_TITLE, key);
+    img.src = getImagePath(DEFAULT_PLAN_TITLE, key);
     return img;
   });
 
@@ -82,14 +83,14 @@ const viewer = new Viewer(planImage, {
 
     // BUG Prevent viewerjs reset on window resize
     viewer.isShown = false;
-    
+
     const showViewerImage = () => {
       image.style.willChange = 'none';
       image.style.opacity = 1;
       viewer.options.transition = true;
       hideLoaderText();
     }
-    
+
     // Run if 'animationend' image event doesn't fired
     const loadingTimeout = setTimeout(() => {
       showViewerImage()
@@ -170,10 +171,6 @@ const legend = query('[data-legend]');
 const legendButton = query('[data-legend-button]');
 const switcher = query('[data-switcher]');
 
-const setLegend = title => {
-  legendImage.src = getImagePath(title, 'legend');
-};
-
 legendButton.addEventListener('click', () => {
   legend.classList.toggle('legend_open');
   switcher.classList.toggle('map-switcher_right');
@@ -182,56 +179,62 @@ legendButton.addEventListener('click', () => {
 
 /* Plans */
 
-const planToggleCurrent = query('[data-plan-toggle="current"]');
-const planToggleNew = query('[data-plan-toggle="new"]');
-const planNewSelect = query('[data-plan-new-select]');
+const planSwitchers = queryAll('[data-plan-switcher]');
+const planSelect = query('[data-plan-select]');
 
 const setPlan = title => {
-  setLegend(title);
-
   const mapUrl = getImagePath(title, 'map');
-  const image = query('.viewer-canvas img');
+  const legendUrl = getImagePath(title, 'legend');
+  const planImage = query('.viewer-canvas img');
+
+  legendImage.src = legendUrl;
 
   setTimeout(() => {
-    image.style.opacity = 0.2;
-    image.src = mapUrl;
+    planImage.style.opacity = 0.2;
+    planImage.src = mapUrl;
     showLoader();
   });
 
-  image.onload = () => {
-    image.style.opacity = 1;
+  planImage.onload = () => {
+    planImage.style.opacity = 1;
     hideLoader();
   };
 
   sendAnalytics(title);
 };
 
-PLANS.filter(({ old }) => !old)
+PLANS.filter(({ pinned }) => !pinned)
   .map(plan => {
     const option = document.createElement('option');
     option.text = plan.title;
     option.value = plan.title;
     return option;
   })
-  .forEach(option => planNewSelect.appendChild(option));
+  .forEach(option => planSelect.appendChild(option));
 
-planNewSelect.value = INITIAL_PLAN_TITLE;
-planNewSelect.addEventListener('change', ({ target }) => {
+planSelect.value = DEFAULT_PLAN_TITLE;
+planSelect.addEventListener('change', ({ target }) => {
   // Remove focus-visible on select after click
-  planNewSelect.blur();
-  setPlan(target.value)
+  planSelect.blur();
+  setPlan(target.value);
 });
 
-planToggleNew.addEventListener('click', () => {
-  planNewSelect.disabled = false;
-  planToggleCurrent.classList.remove('map-toggle__button_active');
-  planToggleNew.classList.add('map-toggle__button_active');
-  setPlan(planNewSelect.value);
-});
+planSwitchers.forEach(button => {
+  const unactiveSwitchers = () => planSwitchers.forEach(
+    button => button.classList.remove('map-toggle__button_active')
+  );
 
-planToggleCurrent.addEventListener('click', () => {
-  planNewSelect.disabled = true;
-  planToggleNew.classList.remove('map-toggle__button_active');
-  planToggleCurrent.classList.add('map-toggle__button_active');
-  setPlan(OLD_PLAN_TITLE);
+  button.addEventListener('click', () => {
+    const planTitle = button.dataset.planSwitcher;
+    const isPlanOld = planTitle === OLD_PLAN_TITLE;
+
+    unactiveSwitchers();
+    button.classList.add('map-toggle__button_active');
+
+
+    planSelect.disabled = isPlanOld;
+    planSelect.value = DEFAULT_PLAN_TITLE;
+    
+    setPlan(planTitle);
+  });
 });

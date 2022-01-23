@@ -1,9 +1,22 @@
 const PLANS = [
   {
-    title: 'Текущий генплан',
+    title: 'Старый',
     map: 'old.plan.jpg',
     legend: 'old.legend.jpg',
+    pinned: true,
     old: true
+  },
+  {
+    title: 'Обсуждение',
+    map: 'functional-zones.plan.png',
+    legend: 'functional-zones.legend.png',
+    pinned: true
+  },
+  {
+    title: 'Утверждённый',
+    map: 'approved.plan.png',
+    legend: 'functional-zones.legend.png',
+    pinned: true
   },
   {
     title: 'Функциональные зоны',
@@ -35,5 +48,5 @@ const PLANS = [
     title: 'ОМЗ в области образования',
     map: 'omz-education.plan.jpg',
     legend: 'omz-education.legend.jpg',
-  },
+  }
 ];

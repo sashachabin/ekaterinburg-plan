@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="./style.css?2">
   
   <link rel="preload" href="./images/functional-zones.plan.png" as="image">
+  <link rel="preload" href="./images/approved.plan.png" as="image">
   <link rel="preload" href="./images/old.plan.jpg" as="image">
   <link rel="preconnect" href="https://mc.yandex.ru/metrika/">
   <link rel="manifest" href="/manifest.json">
@@ -40,11 +41,18 @@
 
   <div class="map-switcher" data-switcher>
     <div class="map-toggle">
-      <button class="map-toggle__button" data-plan-toggle="current">Текущий генплан</button>
-      <button class="map-toggle__button map-toggle__button_active" data-plan-toggle="new">Новый генплан</button>
+      <button class="map-toggle__button" data-plan-switcher="Старый">
+        Старый
+      </button>
+      <button class="map-toggle__button map-toggle__button_active" data-plan-switcher="Обсуждение">
+        Обсуждение
+      </button>
+      <button class="map-toggle__button" data-plan-switcher="Утверждённый">
+        Утверждённый
+      </button>
     </div>
     
-    <select class="map-select" data-plan-new-select>
+    <select class="map-select" data-plan-select>
       <option disabled>Выберите план</option>
     </select>
   </div>
