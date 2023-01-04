@@ -1,31 +1,27 @@
+import Viewer from "viewerjs";
+import { query, queryAll } from './utils/query-dom.js';
+import { plans, versions } from "./plans";
+import sendAnalytics from './utils/send-analytics.js';
+
+import 'viewerjs/dist/viewer.css';
+
 const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_LOADING_TIMEOUT = 5000;
-const YM_COUNTER = 85861499;
-
-const { title: DEFAULT_PLAN_TITLE } = PLANS.find(x => x.default);
-const { title: OLD_PLAN_TITLE } = PLANS.find(x => x.old);
+const DEFAULT_PLAN_NAME = plans.find(x => x.default).name;
+const DEFAULT_PLAN_VERSION = versions.find(x => x.default).id;
 
 
-/* Utils */
-
-const query = selector => document.querySelector(selector);
-const queryAll = selector => document.querySelectorAll(selector);
-
-const sendAnalytics = eventName => window.ym && ym(YM_COUNTER, 'reachGoal', eventName);
-
-const getImagePath = (planTitle, key) => {
-  const image = PLANS.find(({ title }) => title === planTitle)[key];
-  return `./images/${image}`;
+const getImagePath = (version, name, type) => {
+  return `/plans/${version}/${name}.${type}.png`;
 };
-
 
 /* Initial images */
 
 const [planImage, legendImage] = ['map', 'legend']
   .map(key => [key, new Image()])
   .map(([key, img]) => {
-    img.src = getImagePath(DEFAULT_PLAN_TITLE, key);
+    img.src = getImagePath(DEFAULT_PLAN_VERSION, DEFAULT_PLAN_NAME, key);
     return img;
   });
 
@@ -171,6 +167,9 @@ const legend = query('[data-legend]');
 const legendButton = query('[data-legend-button]');
 const switcher = query('[data-switcher]');
 
+switcher.appendChild(createVersionToggleControl(versions));
+switcher.appendChild(createPlanSelectControl(plans));
+
 legendButton.addEventListener('click', () => {
   legend.classList.toggle('legend_open');
   switcher.classList.toggle('map-switcher_right');
@@ -178,13 +177,40 @@ legendButton.addEventListener('click', () => {
 
 
 /* Plans */
+let planVersion = DEFAULT_PLAN_VERSION;
+let planName = DEFAULT_PLAN_NAME;
 
-const planSwitchers = queryAll('[data-plan-switcher]');
-const planSelect = query('[data-plan-select]');
+function setPlan(version, name) {
+  planVersion = version;
+  planName = name;
+  
+  const vesionButtons = queryAll('[data-version]');
+  vesionButtons.forEach(x => x.disabled = false);
+  const allVersions = versions.map(({ id }) => id);
+  const disabledVersions = plans.find(x => x.name === name).versions;
+  const disabledVersion = allVersions.find(x => {
+    return !disabledVersions.includes(x)
+  });
+  const versionButton = query(`[data-version="${disabledVersion}"]`);
+  if (versionButton) {
+    versionButton.disabled = true;
+  }
 
-const setPlan = title => {
-  const mapUrl = getImagePath(title, 'map');
-  const legendUrl = getImagePath(title, 'legend');
+
+  const disabledNames = plans.filter(({ versions }) => {
+    return !versions.includes(planVersion);
+  });
+  const options = queryAll('option');
+  options.forEach(x => x.disabled = false);
+  disabledNames.forEach(({ name }) => {
+    const disabledOption = query(`[value="${name}"`);
+    if (disabledOption) {
+      disabledOption.disabled = true;
+    }
+  })
+  
+  const mapUrl = getImagePath(version, name, 'map');
+  const legendUrl = getImagePath(version, name, 'legend');
   const planImage = query('.viewer-canvas img');
 
   legendImage.src = legendUrl;
@@ -200,41 +226,55 @@ const setPlan = title => {
     hideLoader();
   };
 
-  sendAnalytics(title);
+  sendAnalytics(name);
 };
 
-PLANS.filter(({ pinned }) => !pinned)
-  .map(plan => {
+function createPlanSelectControl(plans) {
+  const planSelect = document.createElement('select');
+  planSelect.classList.add('map-select');
+
+  plans.map(plan => {
     const option = document.createElement('option');
-    option.text = plan.title;
-    option.value = plan.title;
+    option.text = plan.name;
+    option.value = plan.name;
     return option;
-  })
-  .forEach(option => planSelect.appendChild(option));
+  }).forEach(option => planSelect.appendChild(option));
 
-planSelect.value = DEFAULT_PLAN_TITLE;
-planSelect.addEventListener('change', ({ target }) => {
-  // Remove focus-visible on select after click
-  planSelect.blur();
-  setPlan(target.value);
-});
-
-planSwitchers.forEach(button => {
-  const unactiveSwitchers = () => planSwitchers.forEach(
-    button => button.classList.remove('map-toggle__button_active')
-  );
-
-  button.addEventListener('click', () => {
-    const planTitle = button.dataset.planSwitcher;
-    const isPlanOld = planTitle === OLD_PLAN_TITLE;
-
-    unactiveSwitchers();
-    button.classList.add('map-toggle__button_active');
-
-
-    planSelect.disabled = isPlanOld;
-    planSelect.value = DEFAULT_PLAN_TITLE;
-    
-    setPlan(planTitle);
+  planSelect.value = DEFAULT_PLAN_NAME;
+  planSelect.addEventListener('change', ({ target }) => {
+    // Remove focus-visible on select after click
+    planSelect.blur();
+    setPlan(planVersion, target.value);
   });
-});
+  return planSelect;
+}
+
+function createVersionToggleControl(versions) {
+  const versionToggleControl = document.createElement('div');
+  versionToggleControl.classList.add('map-toggle');
+  
+  for (const { id, name, caption, default: isDefault } of versions) {
+    const button = document.createElement('button');
+    button.classList.add('map-toggle__button');
+    button.dataset.version = id;
+
+    if (isDefault) {
+      button.classList.add('map-toggle__button_active');
+    }
+
+    button.innerHTML = `${name} <div class="map-toggle__button-caption">${caption}</div>`;
+
+    button.addEventListener('click', () => {
+      queryAll('.map-toggle__button_active').forEach(
+        button => button.classList.remove('map-toggle__button_active')
+      );
+      button.classList.add('map-toggle__button_active');
+      setPlan(id, planName);
+    });
+
+    versionToggleControl.appendChild(button);
+  }
+
+  return versionToggleControl;
+}
+
