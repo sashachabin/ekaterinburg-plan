@@ -13,7 +13,7 @@ const DEFAULT_PLAN_VERSION = versions.find(x => x.default).id;
 
 
 const getImagePath = (version, name, type) => {
-  return `/plans/${version}/${name}.${type}.png`;
+  return new URL(`./plans/${version}/${name}.${type}.png`, import.meta.url).href;
 };
 
 /* Initial images */
