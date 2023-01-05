@@ -2,15 +2,17 @@
   "name": "ekaterinburg-plan",
   "version": "1.6.0",
   "description": "",
+  "homepage": "https://map.genplanekb.city/",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/a-chabin/ekaterinburg-plan.git"
-  },
   "author": "Alexander Chabin",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/a-chabin/ekaterinburg-plan/issues"
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
-  "homepage": "https://github.com/a-chabin/ekaterinburg-plan#readme"
+  "dependencies": {
+    "viewerjs": "^1.11.2",
+    "vite": "^4.0.3"
+  }
 }

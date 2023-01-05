@@ -21,7 +21,7 @@ button {
   border: 0;
   background-color: white;
   color: black;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: inherit;
   -webkit-appearance: button;
   appearance: button;
 }
@@ -44,7 +44,7 @@ select:focus-visible {
   outline: 2px solid rgba(0,0,0,.9);
 }
 
-.map {
+.plan {
   position: fixed;
   z-index: 1;
   top: 0;
@@ -54,19 +54,19 @@ select:focus-visible {
 }
 
 /* Fixed size image onload */
-.map img {
+.plan img {
   width: 100vmax;
   height: 100vmax;
   opacity: .001;
 }
 
-.map .viewer-canvas {
+.plan .viewer-canvas {
   position: fixed;
   width: 100%;
   height: 100%;
 }
 
-.map .viewer-canvas > img {
+.plan .viewer-canvas > img {
   animation: .8s .1s prepareForImageScaling step-end;
   opacity: 0;
 }
@@ -83,7 +83,7 @@ select:focus-visible {
   }
 }
 
-.map-switcher {
+.plan-switcher {
   display: flex;
   position: absolute;
   z-index: 2;
@@ -98,19 +98,19 @@ select:focus-visible {
 }
 
 @media screen and (min-width: 768px) {
-  .map-switcher {
+  .plan-switcher {
     flex-wrap: nowrap;
     column-gap: 8px;
     transition: all .2s ease;
   }
 
-  .map-switcher_right {
+  .plan-switcher_right {
     left: 100%;
-    transform: translate3d(calc(-150% - 30px), 0, 0);
+    transform: translate3d(calc(-120% - 30px), 0, 0);
   }
 }
 
-.map-select {
+.plan-name-select {
   display: inline-block;
   flex-grow: 1;
   min-width: 300px;
@@ -135,12 +135,17 @@ select:focus-visible {
   -moz-appearance: none;
 }
 
-.map-select:hover {
+.plan-name-select option {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.plan-name-select:hover {
   background-color: white;
 }
 
 @media screen and (min-width: 1200px) {
-  .map-select {
+  .plan-name-select {
     padding-top: 4px;
     padding-right: 40px;
     padding-bottom: 4px;
@@ -149,7 +154,7 @@ select:focus-visible {
   }
 }
 
-.map-toggle {
+.plan-version-toggle {
   display: flex;
   top: 0;
   left: 50%;
@@ -164,7 +169,7 @@ select:focus-visible {
   box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
 }
 
-.map-toggle__button {
+.plan-version-toggle__button {
   flex-grow: 1;
   height: 40px;
   padding-right: 16px;
@@ -180,23 +185,33 @@ select:focus-visible {
   white-space: nowrap;
 }
 
+.plan-version-toggle__button:disabled {
+  opacity: .35;
+  pointer-events: none;
+}
+
 @media screen and (min-width: 991px) {
-  .map-toggle__button {
+  .plan-version-toggle__button {
     font-size: 14px;
   }
 }
 
-.map-toggle__button:hover {
+.plan-version-toggle__button:hover {
   border-bottom: 1px solid rgba(0, 0, 0, .15);
   background-color: rgba(255, 255, 255, .7);
 }
 
-.map-toggle__button:active,
-.map-toggle__button_active {
+.plan-version-toggle__button:active,
+.plan-version-toggle__button_active {
   border-bottom: 1px solid rgba(0, 0, 0, .25);
   background-color: rgba(255, 255, 255, 1);
   color: black;
   cursor: auto;
+}
+
+.plan-version-toggle__button-caption {
+  opacity: .6;
+  font-size: 11px;
 }
 
 .legend {
@@ -472,13 +487,13 @@ select:focus-visible {
 }
 
 @supports (backdrop-filter: blur(5px)) {
-  .map-toggle {
+  .plan-version-toggle {
     border: 1px solid rgba(255,255,255,.1);
     background-color: rgba(240, 240, 240, .8);
     backdrop-filter: blur(8px);
   }
 
-  .map-select {
+  .plan-name-select {
     border: 1px solid rgba(255,255,255,.8);
     background-color: rgba(255,255,255,.9);
     backdrop-filter: blur(8px);

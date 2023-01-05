@@ -6,56 +6,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <title>Генплан Екатеринбурга 2025</title>
-  <meta name="title" content="Генплан Екатеринбурга 2025">
-  <meta name="description" content="Карта с изменениями в генеральном плане Екатеринбурга. Принять участие в общественных слушаниях можно до 19 октября.">
+  <title>Генплан Екатеринбурга</title>
+  <meta name="title" content="Генплан Екатеринбурга">
+  <meta name="description" content="Карта с изменениями в генеральном плане Екатеринбурга 2025 и 2045">
  
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="./images/_favicon.png" />
-  <link rel="stylesheet" href="./style.css?2">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="./style.css">
   
-  <link rel="preload" href="./images/functional-zones.plan.png" as="image">
-  <link rel="preload" href="./images/approved.plan.png" as="image">
-  <link rel="preload" href="./images/old.plan.jpg" as="image">
+  <link rel="preload" href="/plans/2022-discussion/Функциональные зоны.map.png" as="image">
   <link rel="preconnect" href="https://mc.yandex.ru/metrika/">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="./app.webmanifest">
   
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://map.genplanekb.city/">
-  <meta property="og:title" content="Генплан Екатеринбурга 2025">
-  <meta property="og:description" content="Карта с изменениями в генеральном плане Екатеринбурга. Принять участие в общественных слушаниях можно до 19 октября.">
-  <meta property="og:image" content="./images/_thumbnail.png">
-
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://map.genplanekb.city/">
-  <meta property="twitter:title" content="Генплан Екатеринбурга 2025">
-  <meta property="twitter:description" content="Карта с изменениями в генеральном плане Екатеринбурга. Принять участие в общественных слушаниях можно до 19 октября.">
-  <meta property="twitter:image" content="./images/_thumbnail.png">
+  <meta property="og:title" content="Генплан Екатеринбурга">
+  <meta property="og:description" content="Карта с изменениями в генеральном плане Екатеринбурга 2025 и 2045">
+  <meta property="og:image" content="/og.png">
 </head>
 
 <body>
   <div class="loader-text" data-loader-text>Загрузка генплана...</div>
   <div class="loader" data-loader><div></div><div></div><div></div><div></div></div>
 
-  <div class="map" data-map></div>
-
-  <div class="map-switcher" data-switcher>
-    <div class="map-toggle">
-      <button class="map-toggle__button" data-plan-switcher="Старый">
-        Старый
-      </button>
-      <button class="map-toggle__button map-toggle__button_active" data-plan-switcher="Обсуждение">
-        Обсуждение
-      </button>
-      <button class="map-toggle__button" data-plan-switcher="Утверждённый">
-        Утверждённый
-      </button>
-    </div>
-    
-    <select class="map-select" data-plan-select>
-      <option disabled>Выберите план</option>
-    </select>
-  </div>
+  <div class="plan" data-plan></div>
+  <div class="plan-switcher" data-plan-switcher></div>
 
   <aside class="legend" data-legend>
     <div class="legend__menu" data-legend-menu></div>
@@ -67,14 +42,15 @@
     <button class="zoom__button zoom__button_minus" title="Уменьшить масштаб (-)" data-plan-zoom-out>&#8722;</button>
   </div>
 
-  <a href="http://genplanekb.city/#rec366063591" class="contact-button" target="_blank" tabindex="0">Оставить предложение</a>
+  <a href="http://genplanekb.city/#rec366063591" class="contact-button" target="_blank">
+    Оставить предложение
+  </a>
 
-  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank" tabindex="0">О разработчиках карты на GitHub</a>
+  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank">
+    О разработчиках карты на GitHub
+  </a>
   
-  <link rel="stylesheet" href="./assets/viewer.min.css">
-  <script src="./assets/viewer.min.js"></script>
-  <script src="./data.js?2"></script>
-  <script src="./script.js?2"></script>
+  <script src="./script.js" type="module"></script>
 
   <!-- Yandex.Metrika counter -->
   <script>(function (m, e, t, r, i, k, a) { m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) }; m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a) })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(85861499, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });</script><noscript><div><img src="https://mc.yandex.ru/watch/85861499" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
