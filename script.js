@@ -195,7 +195,7 @@ function setPlan(version, name) {
     hideLoader();
   };
 
-  sendAnalytics(name);
+  sendAnalytics(`${version}/${name}`);
 };
 
 function createPlanNameSelect(plans) {
