@@ -1,11 +1,12 @@
 # ekaterinburg-plan
 
-Генеральный план Екатеринбурга. Сравнение 2025 и 2045
+Генплан Екатеринбурга. Инструмент для сравнения версий 2025 и 2045
+
 **[map.genplanekb.city](https://map.genplanekb.city)**
 
-Карта с изменениями в текущем и будущем генеральных планах Екатеринбурга. Подробная информация о плане и общественных слушаниях доступна на сайте [genplanekb.city](http://genplanekb.city/) и на [сайте администрации города](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/348).
-
 ![image](https://user-images.githubusercontent.com/22644149/137645893-c2bd0229-08c2-4d2f-9a7a-32f6399776a7.png)
+
+Подробная информация о плане и общественных слушаниях доступна на сайте [genplanekb.city](http://genplanekb.city/) и на [сайте администрации города](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/348).
 
 ## Возможности
 - Просмотр планов города с zoom и draggable
@@ -31,19 +32,30 @@ npm start
 ```
 
 ### Настройки
-- Изображения с легендами и планами в папке `/plans`
-- Названия и ссылки на планы и легенды в JS-объекте в файле `/plans/data.js`:
+- Изображения с легендами и планами в папке `/plans/`
+- Названия и ссылки на планы и легенды в JS-объекте в файле `/plans/plans.js`:
   ```js
   [
     {
-      title: 'Общественный транспорт',
-      map: 'plan-public-transport.jpg',
-      legend: 'legend-new.jpg'
+      name: 'Функциональные зоны',
+      versions: ['2021-ratified', '2022-discussion'],
+      default: true
+    },
+    ...
+  ];
+  ```
+- Описанине версий генплана `/plans/versions.js`:
+  ```js
+  [
+    {
+      id: '2022-discussion',
+      name: 'Обсуждение',
+      caption: 'генплан до 2045',
+      default: true
     }
     ...
   ];
   ```
-
 
 ## Технологии
 
