@@ -379,7 +379,7 @@ select:focus-visible {
   .contact-button {
     right: 28px;
     left: auto;
-    width: auto;
+    width: 238px;
     transform: none;
     font-size: 16px;
   }
@@ -405,7 +405,7 @@ select:focus-visible {
   .about-link {
     right: 28px;
     left: auto;
-    width: auto;
+    width: 238px;
     transform: none;
   }
 }
