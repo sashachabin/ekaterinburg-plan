@@ -8,29 +8,23 @@ import 'viewerjs/dist/viewer.css';
 const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_LOADING_TIMEOUT = 5000;
-const DEFAULT_PLAN_NAME = plans.find(x => x.default).name;
-const DEFAULT_PLAN_VERSION = versions.find(x => x.default).id;
 
-
-const getImagePath = (version, name, type) => {
-  return new URL(`./plans/${version}/${name}.${type}.png`, import.meta.url).href;
-};
+let currentPlanVersion = versions.find(x => x.default).id;
+let currentPlanName = plans.find(x => x.default).name;
 
 /* Initial images */
-
-const [planImage, legendImage] = ['map', 'legend']
-  .map(key => [key, new Image()])
-  .map(([key, img]) => {
-    img.src = getImagePath(DEFAULT_PLAN_VERSION, DEFAULT_PLAN_NAME, key);
+let [planImage, legendImage] = ['map', 'legend']
+  .map((key) => {
+    const img = new Image();
+    img.src = getImagePath(currentPlanVersion, currentPlanName, key);
     return img;
   });
 
-query('[data-map]').appendChild(planImage);
+query('[data-plan]').appendChild(planImage);
 query('[data-legend-menu]').appendChild(legendImage);
 
 
 /* Loader */
-
 const loader = query('[data-loader]');
 const loaderText = query('[data-loader-text]');
 
@@ -41,7 +35,6 @@ const hideLoaderText = () => loaderText.style.display = 'none';
 
 
 /* Viewer */
-
 const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
 const maxSideSize = Math.max(windowWidth, windowHeight);
 const minZoomRatio = windowWidth > windowHeight ? 1 : 2;
@@ -71,8 +64,8 @@ const viewer = new Viewer(planImage, {
   },
   viewed() {
     planImage.style.display = 'none';
-    const image = query('.viewer-canvas img');
-    image.style.willChange = 'transform, opacity';
+    planImage = query('.viewer-canvas img');
+    planImage.style.willChange = 'transform, opacity';
     viewer.imageData.naturalWidth = maxSideSize;
     viewer.imageData.naturalHeight = maxSideSize;
     viewer.zoomTo(2);
@@ -81,8 +74,8 @@ const viewer = new Viewer(planImage, {
     viewer.isShown = false;
 
     const showViewerImage = () => {
-      image.style.willChange = 'none';
-      image.style.opacity = 1;
+      planImage.style.willChange = 'none';
+      planImage.style.opacity = 1;
       viewer.options.transition = true;
       hideLoaderText();
     }
@@ -92,7 +85,7 @@ const viewer = new Viewer(planImage, {
       showViewerImage()
     }, VIEWER_LOADING_TIMEOUT);
 
-    image.addEventListener('animationend', () => {
+    planImage.addEventListener('animationend', () => {
       showViewerImage();
       clearTimeout(loadingTimeout);
     });
@@ -101,7 +94,6 @@ const viewer = new Viewer(planImage, {
 
 
 /* Zoom & Move */
-
 const getScreenCenter = () => {
   return {
     pageY: window.innerWidth / 2,
@@ -161,63 +153,40 @@ document.addEventListener('keyup', ({ shiftKey, key }) => {
 });
 
 
-/* Legend */
+/* Switcher */
+const planSwitcher = query('[data-plan-switcher]');
+const planVersionToggle = createPlanVersionToggle(versions);
+const planNameSelect = createPlanNameSelect(plans);
 
+planSwitcher.appendChild(planVersionToggle);
+planSwitcher.appendChild(planNameSelect);
+setAvailabilityPlanNames(currentPlanVersion);
+setAvailabilityPlanVersions(currentPlanName);
+
+
+/* Legend */
 const legend = query('[data-legend]');
 const legendButton = query('[data-legend-button]');
-const switcher = query('[data-switcher]');
-
-switcher.appendChild(createVersionToggleControl(versions));
-switcher.appendChild(createPlanSelectControl(plans));
 
 legendButton.addEventListener('click', () => {
   legend.classList.toggle('legend_open');
-  switcher.classList.toggle('map-switcher_right');
+  planSwitcher.classList.toggle('plan-switcher_right');
 });
 
 
 /* Plans */
-let planVersion = DEFAULT_PLAN_VERSION;
-let planName = DEFAULT_PLAN_NAME;
-
 function setPlan(version, name) {
-  planVersion = version;
-  planName = name;
-  
-  const vesionButtons = queryAll('[data-version]');
-  vesionButtons.forEach(x => x.disabled = false);
-  const allVersions = versions.map(({ id }) => id);
-  const disabledVersions = plans.find(x => x.name === name).versions;
-  const disabledVersion = allVersions.find(x => {
-    return !disabledVersions.includes(x)
-  });
-  const versionButton = query(`[data-version="${disabledVersion}"]`);
-  if (versionButton) {
-    versionButton.disabled = true;
-  }
+  currentPlanVersion = version;
+  currentPlanName = name;
 
+  setAvailabilityPlanNames(version);
+  setAvailabilityPlanVersions(name);
 
-  const disabledNames = plans.filter(({ versions }) => {
-    return !versions.includes(planVersion);
-  });
-  const options = queryAll('option');
-  options.forEach(x => x.disabled = false);
-  disabledNames.forEach(({ name }) => {
-    const disabledOption = query(`[value="${name}"`);
-    if (disabledOption) {
-      disabledOption.disabled = true;
-    }
-  })
-  
-  const mapUrl = getImagePath(version, name, 'map');
-  const legendUrl = getImagePath(version, name, 'legend');
-  const planImage = query('.viewer-canvas img');
-
-  legendImage.src = legendUrl;
+  legendImage.src = getImagePath(version, name, 'legend');
 
   setTimeout(() => {
     planImage.style.opacity = 0.2;
-    planImage.src = mapUrl;
+    planImage.src = getImagePath(version, name, 'map');
     showLoader();
   });
 
@@ -229,52 +198,92 @@ function setPlan(version, name) {
   sendAnalytics(name);
 };
 
-function createPlanSelectControl(plans) {
-  const planSelect = document.createElement('select');
-  planSelect.classList.add('map-select');
+function createPlanNameSelect(plans) {
+  const planNameSelect = document.createElement('select');
+  planNameSelect.classList.add('plan-name-select');
 
-  plans.map(plan => {
+  for (let { name } of plans) {
     const option = document.createElement('option');
-    option.text = plan.name;
-    option.value = plan.name;
-    return option;
-  }).forEach(option => planSelect.appendChild(option));
-
-  planSelect.value = DEFAULT_PLAN_NAME;
-  planSelect.addEventListener('change', ({ target }) => {
-    // Remove focus-visible on select after click
-    planSelect.blur();
-    setPlan(planVersion, target.value);
-  });
-  return planSelect;
-}
-
-function createVersionToggleControl(versions) {
-  const versionToggleControl = document.createElement('div');
-  versionToggleControl.classList.add('map-toggle');
-  
-  for (const { id, name, caption, default: isDefault } of versions) {
-    const button = document.createElement('button');
-    button.classList.add('map-toggle__button');
-    button.dataset.version = id;
-
-    if (isDefault) {
-      button.classList.add('map-toggle__button_active');
-    }
-
-    button.innerHTML = `${name} <div class="map-toggle__button-caption">${caption}</div>`;
-
-    button.addEventListener('click', () => {
-      queryAll('.map-toggle__button_active').forEach(
-        button => button.classList.remove('map-toggle__button_active')
-      );
-      button.classList.add('map-toggle__button_active');
-      setPlan(id, planName);
-    });
-
-    versionToggleControl.appendChild(button);
+    option.text = name;
+    option.value = name;
+    option.dataset.planName = name;
+    planNameSelect.appendChild(option);
   }
 
-  return versionToggleControl;
+  planNameSelect.value = currentPlanName;
+  planNameSelect.addEventListener('change', ({ target }) => {
+    const planName = target.value;
+    // Remove focus-visible on select after click
+    planNameSelect.blur();
+    setPlan(currentPlanVersion, planName);
+  });
+  return planNameSelect;
 }
 
+function createPlanVersionToggle(versions) {
+  const planVersionToggleActiveClassName = 'plan-version-toggle__button_active';
+  const planVersionToggle = document.createElement('div');
+  planVersionToggle.classList.add('plan-version-toggle');
+
+  for (const { id: planVersion, name, caption, default: isDefault } of versions) {
+    const button = document.createElement('button');
+    button.classList.add('plan-version-toggle__button');
+    button.dataset.planVersion = planVersion;
+
+    if (isDefault) {
+      button.classList.add(planVersionToggleActiveClassName);
+    }
+
+    button.innerHTML = `${name} <div class="plan-version-toggle__button-caption">${caption}</div>`;
+
+    button.addEventListener('click', () => {
+      for (let button of queryAll(`.${planVersionToggleActiveClassName}`)) {
+        button.classList.remove(planVersionToggleActiveClassName);
+      }
+      button.classList.add(planVersionToggleActiveClassName);
+      setPlan(planVersion, currentPlanName);
+    });
+
+    planVersionToggle.appendChild(button);
+  }
+
+  return planVersionToggle;
+}
+
+function setAvailabilityPlanNames(version) {
+  const disabledNames = plans.filter((plan) => (
+    !plan.versions.includes(version)
+  ));
+
+  for (let option of queryAll('[data-plan-name]')) {
+    option.disabled = false;
+  }
+
+  for (let { name } of disabledNames) {
+    const disabledOption = query(`[data-plan-name="${name}"]`);
+    if (disabledOption) {
+      disabledOption.disabled = true;
+    }
+  }
+}
+
+function setAvailabilityPlanVersions(name) {
+  const allVersions = versions.map(({ id }) => id);
+  const disabledVersions = plans.find(plan => plan.name === name).versions;
+  const disabledVersion = allVersions.find(x => {
+    return !disabledVersions.includes(x);
+  });
+
+  for (let versionButton of queryAll('[data-plan-version]')) {
+    versionButton.disabled = false;
+  }
+
+  const versionButton = query(`[data-plan-version="${disabledVersion}"]`);
+  if (versionButton) {
+    versionButton.disabled = true;
+  }
+}
+
+function getImagePath(version, name, type) {
+  return new URL(`./plans/${version}/${name}.${type}.png`, import.meta.url).href;
+}
