@@ -18,14 +18,14 @@ export default [
   },
   {
     name: 'ОМЗ в части общественного транспорта',
-    versions: ['2021-ratified']
-  },
-  {
-    name: 'ОМЗ по работе с детьми',
-    versions: ['2021-ratified']
+    versions: ['2021-ratified', '2022-discussion']
   },
   {
     name: 'ОМЗ в области образования',
-    versions: ['2021-ratified']
+    versions: ['2021-ratified', '2022-discussion']
+  },
+  {
+    name: 'Карта ООПТ',
+    versions: ['2022-discussion']
   }
 ];
