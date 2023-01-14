@@ -6,7 +6,7 @@
 
 ![image](https://user-images.githubusercontent.com/22644149/137645893-c2bd0229-08c2-4d2f-9a7a-32f6399776a7.png)
 
-Подробная информация о плане и общественных слушаниях доступна на сайте [genplanekb.city](http://genplanekb.city/) и на [сайте администрации города](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/348).
+Подробная информация о плане и общественных слушаниях доступна на сайте [peacefulpeople.ru](https://peacefulpeople.ru/genplan) и на [сайте администрации города](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/514).
 
 ## Возможности
 - Просмотр планов города с zoom и draggable
