@@ -25,6 +25,10 @@ export default [
     versions: ['2021-ratified', '2022-discussion']
   },
   {
+    name: 'ОМЗ озеленённые территории',
+    versions: ['2022-discussion']
+  },
+  {
     name: 'Карта ООПТ',
     versions: ['2022-discussion']
   }
