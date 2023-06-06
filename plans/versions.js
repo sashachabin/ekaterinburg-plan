@@ -1,13 +1,18 @@
 export default [
   {
-    id: '2021-ratified',
+    id: '2023-ratified',
     name: 'Утверждённый',
-    caption: 'генплан до 2025'
+    caption: 'генплан до 2045',
+    default: true
   },
   {
     id: '2022-discussion',
     name: 'Обсуждение',
     caption: 'генплан до 2045',
-    default: true
+  },
+  {
+    id: '2021-ratified',
+    name: 'Старый',
+    caption: 'генплан до 2025'
   }
 ];

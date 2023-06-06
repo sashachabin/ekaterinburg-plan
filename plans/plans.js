@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Функциональные зоны',
-    versions: ['2021-ratified', '2022-discussion'],
+    versions: ['2023-ratified', '2022-discussion', '2021-ratified'],
     default: true
   },
   {
