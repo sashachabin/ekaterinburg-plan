@@ -30,7 +30,7 @@ export default [
   },
   {
     name: 'ОМЗ Велоинфраструктура',
-    versions: ['2022-discussion']
+    versions: ['2022-discussion', '2023-ratified']
   },
   {
     name: 'Карта ООПТ',
