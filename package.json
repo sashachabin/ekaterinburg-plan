@@ -1,7 +1,6 @@
 {
   "name": "ekaterinburg-plan",
-  "version": "2.2.1",
-  "description": "",
+  "description": "Ekaterinburg plan viewer",
   "homepage": "https://map.genplanekb.city/",
   "main": "index.js",
   "author": "Alexander Chabin",
