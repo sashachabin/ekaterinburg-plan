@@ -1,22 +1,76 @@
 # ekaterinburg-plan
 
-Генплан Екатеринбурга. Карта с изменениями в генеральном плане 2025 и 2045
+Генплан Екатеринбурга. Приложение для просмотра изменений на картах 2025 и 2045.
 
 **[map.genplanekb.city](https://map.genplanekb.city)**
 
-![image](https://user-images.githubusercontent.com/22644149/137645893-c2bd0229-08c2-4d2f-9a7a-32f6399776a7.png)
+<img src="https://github.com/a-chabin/ekaterinburg-plan/assets/22644149/9ec049eb-e0c9-4fce-86bc-bd023634e19a" alt="" width="65%">
 
-Подробная информация о плане и общественных слушаниях доступна на сайте [peacefulpeople.ru](https://peacefulpeople.ru/genplan) и на [сайте администрации города](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/514).
 
-## Возможности
-- Просмотр планов города с zoom и draggable
-- Переключение планов
-- Легенда
+## О проекте
+Просмотрщик помогает работникам местных СМИ и городским активистам просматривать изменения в генплане, не скачивая десятки `.pdf` файлов [с сайта администрации Екатеринбурга](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/514). Более подробная информация об изменениях и проводимых общественных слушаниях размещена на сайте общественной организации [«Мирные жители»](https://peacefulpeople.ru/genplan)‎‎.
+
+### Возможности
+- Просмотр изображений с помощью [Viewer.js](https://github.com/fengyuanchen/viewerjs)
 - Управление с клавиатуры
   - `Shift + ↑/→/↓/←` — Перемещение по карте
   - `Ctr +/-` — Зум
   - `Esc` / `0` — Сброс зума
   - `Tab` — Переключение между элементами управления
+
+
+## Настройки
+
+### Изображения
+Планы и легенды находятся в подпапках [`/plans`](https://github.com/a-chabin/ekaterinburg-plan/tree/main/plans):
+```
+plans/
+│
+└───2023-ratified/
+│   ├── ОМЗ Велоинфраструктура.map.png
+│   ├── ОМЗ Велоинфраструктура.legend.png
+│   │   ...
+└───2021-raitified/
+│   ├── ОМЗ Велоинфраструктура.map.png
+│   ├── ОМЗ Велоинфраструктура.legend.png
+│   │   ...
+```
+
+### Версии плана
+Список версий генплана задается в [`/plans/versions.js`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/versions.js):
+```js
+[
+  {
+    id: '2023-ratified',
+    name: 'Утверждённый',
+    caption: 'генплан до 2045',
+    default: true
+  },
+  {
+    id: '2021-ratified',
+    name: 'Старый',
+    caption: 'генплан до 2025'
+  }
+  ...
+];
+```
+
+### Список планов
+Список планов и указание доступных версий для них задается в [`/plans/plans.js`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/plans.js):
+```js
+[
+  {
+    name: 'Функциональные зоны',
+    versions: ['2023-ratified', '2022-discussion', '2021-ratified'],
+    default: true
+  },
+  {
+    name: 'Велоинфраструктура',
+    versions: ['2022-discussion']
+  },
+  ...
+];
+```
 
 ## Разработка
 1. Установить [Node.js](https://nodejs.org/en/download/)
@@ -31,53 +85,10 @@ npm i
 npm start
 ```
 
-### Настройки
-- Изображения с легендами и планами в папке `/plans/`
-- Названия и ссылки на планы и легенды в JS-объекте в файле `/plans/plans.js`:
-  ```js
-  [
-    {
-      name: 'Функциональные зоны',
-      versions: ['2021-ratified', '2022-discussion'],
-      default: true
-    },
-    ...
-  ];
-  ```
-- Описанине версий генплана `/plans/versions.js`:
-  ```js
-  [
-    {
-      id: '2022-discussion',
-      name: 'Обсуждение',
-      caption: 'генплан до 2045',
-      default: true
-    }
-    ...
-  ];
-  ```
-
-## Технологии
-
-- [Vite](https://vitejs.dev/)
-- Просмотрщик [Viewer.js](https://github.com/fengyuanchen/viewerjs) 
-- Деплой на [Vercel](https://vercel.com/)
-
-<br />
-
-> ### Рекомендации
-> Данный проект сделан в рамках хакатона, срок жизни — 1 неделя, до окончания проведения общественных слушаний.
-> Мы подготовили несколько советов, если вам потребуется реализовать подобный просмотрщик:
-> #### Изображения
-> - Используйте форматы изображений AVIF и WebP вместо PNG и JPG и теги `<picture>` и `<source>` для совместимости со старыми браузерами. Подробнее о сжатии, качестве, декодировании/кодировании в статье «[Using Modern Image Formats: AVIF And WebP](https://www.smashingmagazine.com/2021/09/modern-image-formats-avif-webp/)».
-> - Чтобы не терять FPS при анимировании больших изображений (к примеру, >1.5 мб, 1500x1500) следует использовать более современный просмотрщик [PhotoSwipe](https://photoswipe.com/) вместо [Viewer.js](https://github.com/fengyuanchen/viewerjs). PhotoSwipe использует свойства `transform: scale(), translate()` вместо `width`, `height`, `margin`, `top` и других, которые вызывают дополнительные этапы рендеринга — `Layout` и `Paint`. Подробнее об этом в статьях «[How to create high-performance CSS animations](https://web.dev/animations-guide/)», «[Why are some animations slow?](https://web.dev/animations-overview/)» и в таблице [CSS Triggers](https://csstriggers.com/).
-> #### Карты
-> - Если вы работаете с картой, то разделите её на **тайлы** — маленькие кусочки. Например, на изображения 256x256 с помощью [mapslice (nodejs)](https://www.npmjs.com/package/mapslice).
-> - Используйте готовые решения с кастомными картами-картинками от [Google Maps](https://developers.google.com/maps/documentation/javascript/examples/maptype-base), [Яндекс.Карты](https://yandex.ru/dev/maps/jsbox/2.1/custom_map) и бесплатные — [Leaflet](https://leafletjs.com/), [OpenLayers](https://openlayers.org/en/latest/examples/static-image.html), [polymaps](http://polymaps.org/), [kartograph](http://kartograph.org/), [PanoJS](http://www.dimin.net/software/panojs/).
-
-
 ## Авторы
-- [Алексей Кофман](https://twitter.com/alex_kofman) — идейный вдохновитель, подготовка планов и легенд
-- [Александр Чабин](https://twitter.com/nibach) — разработчик
-- [Никита Коновалов](https://twitter.com/n_konovalov) — дизайнер и разработчик
+- [Алексей Кофман](https://twitter.com/alex_kofman) — автор идеи, подготовка планов
+- [Никита Коновалов](https://twitter.com/n_konovalov) — дизайн
+- [Александр Чабин](https://twitter.com/nibach) — разработка
 
+---
+Код просмотрщика может быть использован в любых целях для любых проектов в рамках лицензии MIT.
