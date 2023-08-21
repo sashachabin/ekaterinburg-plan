@@ -9,8 +9,8 @@ const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
 const VIEWER_LOADING_TIMEOUT = 5000;
 
-let currentPlanVersion = versions.find(x => x.default).id;
-let currentPlanName = plans.find(x => x.default).name;
+let currentPlanVersion = versions[0].id;
+let currentPlanName = plans[0].name;
 
 /* Initial images */
 let [planImage, legendImage] = ['map', 'legend']
