@@ -1,7 +1,7 @@
 import Viewer from "viewerjs";
 import { query, queryAll } from './utils/query-dom.js';
 import { plans, versions } from "./plans";
-import sendAnalytics from './utils/send-analytics.js';
+import { sendAnalytics } from './utils/analytics.js';
 
 import 'viewerjs/dist/viewer.css';
 

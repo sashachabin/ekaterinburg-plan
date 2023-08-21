@@ -8,10 +8,14 @@
 
 
 ## О проекте
+
 Просмотрщик помогает работникам местных СМИ и городским активистам просматривать изменения в генплане, не выкачивая десятки `.pdf` файлов [с сайта администрации Екатеринбурга](https://xn--90agdcm3aczs9j.xn--80acgfbsl1azdqr.xn--p1ai/discus/514). Более подробная информация об изменениях и проводимых общественных слушаниях размещена на сайте общественной организации [«Мирные жители»](https://peacefulpeople.ru/genplan).
 
+
 ### Возможности
+
 - Просмотр изображений с помощью [Viewer.js](https://github.com/fengyuanchen/viewerjs)
+- Отправка аналитики в Яндекс.Метрику
 - Управление с клавиатуры
   - `Shift + ↑/→/↓/←` — Перемещение по карте
   - `Ctr +/-` — zoom
@@ -22,6 +26,7 @@
 ## Настройки
 
 ### Файлы планов
+
 Планы и легенды находятся в подпапках с названием версий внутри [`/plans`](https://github.com/a-chabin/ekaterinburg-plan/tree/main/plans):
 ```sh
 plans/
@@ -36,7 +41,9 @@ plans/
 │   │   ...
 ```
 
+
 ### Версии плана
+
 Список версий генплана задается в [`/plans/versions.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/versions.json):
 ```json5
 [
@@ -54,7 +61,9 @@ plans/
 ]
 ```
 
+
 ### Список планов
+
 Список планов с указанием доступных для них версий задается в [`/plans/plans.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/plans.json)
 ```json5
 [
@@ -70,7 +79,9 @@ plans/
 ]
 ```
 
+
 ## Разработка
+
 1. Установить [Node.js](https://nodejs.org/en/download/)
 
 2. Установить зависимости
@@ -78,12 +89,19 @@ plans/
 npm i
 ```
 
-3. Запустить
+3. Создать `.env` файл код счётчика Яндекс.Метрики (опционально)
+```sh
+VITE_YANDEX_METRIKA_API_KEY=
+```
+
+4. Запустить
 ```
 npm start
 ```
 
+
 ## Авторы
+
 - [Алексей Кофман](https://twitter.com/alex_kofman) — автор идеи, подготовка планов
 - [Никита Коновалов](https://twitter.com/n_konovalov) — дизайн
 - [Александр Чабин](https://twitter.com/nibach) — разработка
