@@ -1,0 +1,32 @@
+.about-link {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 2;
+  width: 300px;
+  padding: 2px 11px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, .14);
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%);
+}
+
+@media screen and (min-width: 991px) {
+  .about-link {
+    right: 28px;
+    left: auto;
+    width: 238px;
+    transform: none;
+  }
+}
+
+@supports (backdrop-filter: blur(5px)) {
+  .about-link {
+    border: 1px solid rgba(0,0,0,.05);
+    background-color: rgba(0,0,0,.2);
+    backdrop-filter: blur(8px);
+  }
+}

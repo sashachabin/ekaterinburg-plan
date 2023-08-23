@@ -1,0 +1,75 @@
+.legend {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 37vw;
+  height: 100%;
+  transition: transform .15s ease;
+  transform: translateX(calc(-100% - 5px));
+}
+
+.legend__menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0 8px 0 0;
+  background: white;
+  box-shadow: 1px 0 15px rgba(0,0,0.05);
+}
+
+.legend__menu img {
+  display: none;
+  max-width: 100%;
+}
+
+.legend__button {
+  position: absolute;
+  top: 60%;
+  right: -69px;
+  z-index: 1;
+  display: inline-block;
+  padding: 13px 16px;
+  border: 0;
+  border-radius: 0 0 8px 8px;
+  background-color: rgba(255, 255, 255, .95);
+  box-shadow: -2px 2px 2px rgba(0, 0, 0, .45);
+  font-size: 16px;
+  transition: background-color .175s ease;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: 50% calc(50% + .4px);
+}
+
+.legend__button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.legend_open {
+  width: calc(100vw - 45px);
+  transform: translateX(0);
+}
+
+.legend_open img {
+  display: block;
+}
+
+.legend_open .legend__button {
+  background-color: white;
+}
+
+@media screen and (min-width: 768px) {
+  .legend__button {
+    top: calc(50% + 8px);
+    right: -76px;
+    padding: 16px 22px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .legend_open {
+    width: 37vw;
+  }
+}

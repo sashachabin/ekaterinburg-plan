@@ -1,0 +1,26 @@
+.plan-switcher {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  justify-content: center;
+  align-items: center;
+  transform: translate3d(-50%, 0, 0);
+}
+
+@media screen and (min-width: 768px) {
+  .plan-switcher {
+    flex-wrap: nowrap;
+    column-gap: 8px;
+    transition: all .2s ease;
+  }
+
+  .plan-switcher_right {
+    left: 100%;
+    transform: translate3d(calc(-120% - 30px), 0, 0);
+  }
+}

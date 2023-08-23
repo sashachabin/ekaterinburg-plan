@@ -1,0 +1,51 @@
+.plan-name-select {
+  display: inline-block;
+  flex-grow: 1;
+  min-width: 300px;
+  height: 50px;
+  padding-right: 34px;
+  padding-left: 8px;
+  border: 0;
+  border-radius: 8px;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 330 330' style='enable-background:new 0 0 330 330;' xml:space='preserve'%3E%3Cpath id='XMLID_225_' d='M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
+  background-position: calc(100% - 13px) calc(50% + 1px);
+  background-size: 13px;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px rgba(0, 0, 0, .2), 0 2px 3px 1px rgba(0, 0, 0, .3);
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color .15s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.plan-name-select option {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.plan-name-select:hover {
+  background-color: white;
+}
+
+@media screen and (min-width: 1200px) {
+  .plan-name-select {
+    padding-top: 4px;
+    padding-right: 40px;
+    padding-bottom: 4px;
+    padding-left: 16px;
+    font-size: 14px;
+  }
+}
+
+@supports (backdrop-filter: blur(5px)) {
+  .plan-name-select {
+    border: 1px solid rgba(255,255,255,.8);
+    background-color: rgba(255,255,255,.9);
+    backdrop-filter: blur(8px);
+  }
+}

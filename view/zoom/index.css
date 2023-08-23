@@ -1,0 +1,59 @@
+.zoom {
+  position: absolute;
+  top: 60%;
+  right: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, .95);
+  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
+  transform: translate(0, -50%);
+}
+
+.zoom__button {
+  width: 39px;
+  height: 44px;
+  background: rgba(255,255,255,.45);
+  color: rgba(0, 0, 0, .75);
+  font-size: 30px;
+  transition: background-color .15s ease;
+}
+
+@media screen and (min-width: 768px) {
+  .zoom {
+    top: 50%;
+  }
+
+  .zoom__button {
+    width: 45px;
+    height: 46px;
+    font-size: 32px;
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .zoom {
+    right: 28px;
+  }
+}
+
+.zoom__button:hover{
+  background: rgba(0, 0, 0, .025);
+}
+
+.zoom__button:active {
+  background: rgba(0, 0, 0, .05);
+}
+
+.zoom__button_plus {
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 50px 50px 0 0;
+}
+
+.zoom__button_minus {
+  padding-top: 0;
+  padding-bottom: 3px;
+  border-radius: 0 0 50px 50px;
+}
