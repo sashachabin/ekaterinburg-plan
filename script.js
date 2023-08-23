@@ -225,12 +225,12 @@ function createPlanVersionToggle(versions) {
   const planVersionToggle = document.createElement('div');
   planVersionToggle.classList.add('plan-version-toggle');
 
-  for (const { id: planVersion, name, caption, default: isDefault } of versions) {
+  versions.forEach(({ id: planVersion, name, caption }, i) => {
     const button = document.createElement('button');
     button.classList.add('plan-version-toggle__button');
     button.dataset.planVersion = planVersion;
 
-    if (isDefault) {
+    if (i === 0) {
       button.classList.add(planVersionToggleActiveClassName);
     }
 
@@ -245,7 +245,7 @@ function createPlanVersionToggle(versions) {
     });
 
     planVersionToggle.appendChild(button);
-  }
+  })
 
   return planVersionToggle;
 }
