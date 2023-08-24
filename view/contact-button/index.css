@@ -1,18 +1,20 @@
 .contact-button {
   position: absolute;
-  bottom: 38px;
+  bottom: 45px;
   left: 50%;
   z-index: 2;
-  display: inline-block;
+  display: flex;
+  gap: .35em;
+  justify-content: center;
+  align-items: center;
   width: 300px;
-  padding: 10px 30px;
+  padding: 9px 20px;
   border: 0;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgba(255, 255, 255, .95);
   color: #1a1a1a;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, .4);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
   font-size: 15px;
-  text-align: center;
   text-decoration: none;
   white-space: nowrap;
   transition: background-color .15s ease;
@@ -25,9 +27,11 @@
 
 @media screen and (min-width: 991px) {
   .contact-button {
-    right: 28px;
+    right: 16px;
+    bottom: 55px;
     left: auto;
-    width: 238px;
+    justify-content: flex-start;
+    width: 250px;
     font-size: 16px;
     transform: none;
   }
