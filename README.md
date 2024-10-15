@@ -2,7 +2,7 @@
 
 Генплан Екатеринбурга. Приложение для просмотра изменений на картах 2025 и 2045.
 
-**[map.genplanekb.city](https://map.genplanekb.city)**
+**[genplanekb.ru](https://genplanekb.ru)**
 
 <img src="https://github.com/a-chabin/ekaterinburg-plan/assets/22644149/9ec049eb-e0c9-4fce-86bc-bd023634e19a" alt="" width="65%">
 
