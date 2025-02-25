@@ -1,7 +1,7 @@
 [
   {
     "name": "Функциональные зоны",
-    "versions": ["2023-ratified", "2022-discussion", "2021-ratified"]
+    "versions": ["2021-ratified", "2022-discussion", "2023-ratified"]
   },
   {
     "name": "Велоинфраструктура",
@@ -16,16 +16,24 @@
     "versions": ["2021-ratified", "2022-discussion"]
   },
   {
+    "name": "Автодороги местного значения",
+    "versions": ["2023-ratified"]
+  },
+  {
     "name": "ОМЗ в части общественного транспорта",
-    "versions": ["2021-ratified", "2022-discussion"]
+    "versions": ["2021-ratified", "2022-discussion", "2023-ratified"]
+  },
+  {
+    "name": "ОМЗ в области культуры",
+    "versions": ["2023-ratified"]
   },
   {
     "name": "ОМЗ в области образования",
-    "versions": ["2021-ratified", "2022-discussion"]
+    "versions": ["2021-ratified", "2022-discussion", "2023-ratified"]
   },
   {
     "name": "ОМЗ озеленённые территории",
-    "versions": ["2022-discussion"]
+    "versions": ["2022-discussion", "2023-ratified"]
   },
   {
     "name": "ОМЗ Велоинфраструктура",
