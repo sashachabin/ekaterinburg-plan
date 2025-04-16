@@ -1,7 +1,7 @@
 {
   "name": "ekaterinburg-plan",
-  "description": "Ekaterinburg plan viewer",
-  "homepage": "https://map.genplanekb.city/",
+  "description": "Viewer of the master plan of Ekaterinburg for 2025/2045",
+  "homepage": "https://genplanekb.ru/",
   "main": "index.js",
   "author": "Alexander Chabin",
   "license": "MIT",
