@@ -160,8 +160,8 @@ const planNameSelect = createPlanNameSelect(plans);
 
 planSwitcher.appendChild(planVersionToggle);
 planSwitcher.appendChild(planNameSelect);
-setAvailabilityPlanNames(currentPlanVersion);
-setAvailabilityPlanVersions(currentPlanName);
+setPlanNamesAvailability(currentPlanVersion);
+setPlanVersionsAvailability(currentPlanName);
 
 
 /* Legend */
@@ -179,8 +179,8 @@ function setPlan(version, name) {
   currentPlanVersion = version;
   currentPlanName = name;
 
-  setAvailabilityPlanNames(version);
-  setAvailabilityPlanVersions(name);
+  setPlanNamesAvailability(version);
+  setPlanVersionsAvailability(name);
 
   legendImage.src = getImagePath(version, name, 'legend');
 
@@ -196,7 +196,7 @@ function setPlan(version, name) {
   };
 
   sendAnalytics(`${version}/${name}`);
-};
+}
 
 function createPlanNameSelect(plans) {
   const planNameSelect = document.createElement('select');
@@ -250,37 +250,21 @@ function createPlanVersionToggle(versions) {
   return planVersionToggle;
 }
 
-function setAvailabilityPlanNames(version) {
-  const disabledNames = plans.filter((plan) => (
-    !plan.versions.includes(version)
-  ));
+function setPlanNamesAvailability(version) {
+  const namesAvailable = plans.filter((plan) => plan.versions.includes(version)).map(x => x.name);
 
-  for (let option of queryAll('[data-plan-name]')) {
-    option.disabled = false;
-  }
-
-  for (let { name } of disabledNames) {
-    const disabledOption = query(`[data-plan-name="${name}"]`);
-    if (disabledOption) {
-      disabledOption.disabled = true;
-    }
+  for (let nameOption of queryAll('[data-plan-name]')) {
+    const name = nameOption.dataset.planName;
+    nameOption.disabled = !namesAvailable.includes(name);
   }
 }
 
-function setAvailabilityPlanVersions(name) {
-  const allVersions = versions.map(({ id }) => id);
-  const disabledVersions = plans.find(plan => plan.name === name).versions;
-  const disabledVersion = allVersions.find(x => {
-    return !disabledVersions.includes(x);
-  });
-
+function setPlanVersionsAvailability(name) {
+  const versionsAvailable = plans.find(plan => plan.name === name).versions;
+  
   for (let versionButton of queryAll('[data-plan-version]')) {
-    versionButton.disabled = false;
-  }
-
-  const versionButton = query(`[data-plan-version="${disabledVersion}"]`);
-  if (versionButton) {
-    versionButton.disabled = true;
+    const version = versionButton.dataset.planVersion;
+    versionButton.disabled = !versionsAvailable.includes(version);
   }
 }
 
