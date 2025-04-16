@@ -41,27 +41,6 @@ plans/
 │   │   ...
 ```
 
-
-### Версии плана
-
-Список версий генплана задается в [`/plans/versions.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/versions.json):
-```json5
-[
-  {
-    "id": "2023-ratified",
-    "name": "Утверждённый",
-    "caption": "генплан до 2045",
-  },
-  {
-    "id": "2021-ratified",
-    "name": "Старый",
-    "caption": "генплан до 2025"
-  },
-  // ...
-]
-```
-
-
 ### Список планов
 
 Список планов с указанием доступных для них версий задается в [`/plans/plans.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/plans.json)
@@ -76,6 +55,29 @@ plans/
     "versions": ["2022-discussion"]
   },
   // ...
+]
+```
+
+### Описания версий
+
+Описания версий генплана задаются в [`/plans/versions.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/versions.json):
+```json5
+[
+  {
+    "id": "2023-ratified",
+    "name": "Утверждённый",
+    "caption": "генплан до 2045"
+  },
+  {
+    "id": "2022-discussion",
+    "name": "Обсуждение",
+    "caption": "генплан до 2045"
+  },
+  {
+    "id": "2021-ratified",
+    "name": "Старый",
+    "caption": "генплан до 2025"
+  }
 ]
 ```
 
