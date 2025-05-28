@@ -5,19 +5,19 @@
   },
   {
     "name": "Велоинфраструктура",
-    "versions": ["2025-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-discussion"]
   },
   {
     "name": "Общественный транспорт",
-    "versions": ["2023-ratified", "2023-discussion"]
+    "versions": ["2023-discussion"]
   },
   {
     "name": "Транспортная инфраструктура",
-    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
+    "versions": ["2025-discussion", "2023-discussion"]
   },
   {
     "name": "Автодороги местного значения",
-    "versions": ["2025-discussion"]
+    "versions": ["2025-discussion", "2023-ratified"]
   },
   {
     "name": "Зеленые зоны",
@@ -29,7 +29,7 @@
   },
   {
     "name": "ОМЗ в области культуры",
-    "versions": ["2025-discussion"]
+    "versions": ["2025-discussion", "2023-ratified"]
   },
   {
     "name": "ОМЗ в области образования",
@@ -37,14 +37,14 @@
   },
   {
     "name": "ОМЗ озелененные территории",
-    "versions": ["2025-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
   },
   {
     "name": "ОМЗ Велоинфраструктура",
-    "versions": ["2025-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
   },
   {
     "name": "Карта ООПТ",
-    "versions": ["2025-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-discussion"]
   }
 ]
