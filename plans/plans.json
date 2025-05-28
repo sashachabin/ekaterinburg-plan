@@ -1,46 +1,50 @@
 [
   {
     "name": "Функциональные зоны",
-    "versions": ["2021-ratified", "2022-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
   },
   {
     "name": "Велоинфраструктура",
-    "versions": ["2022-discussion"]
+    "versions": ["2025-discussion", "2023-ratified"]
   },
   {
     "name": "Общественный транспорт",
-    "versions": ["2021-ratified", "2022-discussion"]
+    "versions": ["2023-ratified", "2023-discussion"]
   },
   {
     "name": "Транспортная инфраструктура",
-    "versions": ["2021-ratified", "2022-discussion"]
+    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
   },
   {
     "name": "Автодороги местного значения",
-    "versions": ["2023-ratified"]
+    "versions": ["2025-discussion"]
+  },
+  {
+    "name": "Зеленые зоны",
+    "versions": ["2025-discussion"]
   },
   {
     "name": "ОМЗ в части общественного транспорта",
-    "versions": ["2021-ratified", "2022-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
   },
   {
     "name": "ОМЗ в области культуры",
-    "versions": ["2023-ratified"]
+    "versions": ["2025-discussion"]
   },
   {
     "name": "ОМЗ в области образования",
-    "versions": ["2021-ratified", "2022-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-ratified", "2023-discussion"]
   },
   {
-    "name": "ОМЗ озеленённые территории",
-    "versions": ["2022-discussion", "2023-ratified"]
+    "name": "ОМЗ озелененные территории",
+    "versions": ["2025-discussion", "2023-ratified"]
   },
   {
     "name": "ОМЗ Велоинфраструктура",
-    "versions": ["2022-discussion", "2023-ratified"]
+    "versions": ["2025-discussion", "2023-ratified"]
   },
   {
     "name": "Карта ООПТ",
-    "versions": ["2022-discussion"]
+    "versions": ["2025-discussion", "2023-ratified"]
   }
 ]
