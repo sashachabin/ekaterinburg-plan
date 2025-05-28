@@ -1,17 +1,17 @@
 [
   {
+    "id": "2025-discussion",
+    "name": "2025",
+    "caption": "Обсуждение"
+  },
+  {
     "id": "2023-ratified",
-    "name": "Утверждённый",
-    "caption": "генплан до 2045"
+    "name": "2023",
+    "caption": "Утверждённый"
   },
   {
-    "id": "2022-discussion",
-    "name": "Обсуждение",
-    "caption": "генплан до 2045"
-  },
-  {
-    "id": "2021-ratified",
-    "name": "Старый",
-    "caption": "генплан до 2025"
+    "id": "2023-discussion",
+    "name": "2023",
+    "caption": "Обсуждение"
   }
 ]
