@@ -1,41 +1,49 @@
-name: Vercel Deploy
-on: [push]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Extract branch name
-        id: extract_branch
-        run: |
-          branch_name=${GITHUB_REF#refs/heads/}
-          branch_formatted=${branch_name//\//-}
-          echo $branch_name
-          echo $branch_formatted
-          echo ::set-output name=branch::$branch_formatted
-      - name: Checkout Code
-        uses: actions/checkout@v2
+name: Deploy
 
-      - name: Deploy to Staging
-        id: deploy-vercel-staging
-        uses: amondnet/vercel-action@v20
-        if: github.ref != 'refs/heads/main'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v4
         with:
-          vercel-token: ${{secrets.VERCEL_TOKEN}}
-          github-token: ${{secrets.VERCEL_GITHUB_TOKEN}}
-          vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
-          alias-domains: >-
-            ${{ format(
-              '{0}-{1}.vercel.app',
-              secrets.VERCEL_DOMAIN,
-              steps.extract_branch.outputs.branch)
-            }}
-      - name: Deploy to Production
-        id: deploy-vercel-production
-        uses: amondnet/vercel-action@v20
-        if: github.ref == 'refs/heads/main'
+          name: production-files
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-          vercel-token: ${{secrets.VERCEL_TOKEN}}
-          vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
-          vercel-args: "--prod"
+          name: production-files
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
