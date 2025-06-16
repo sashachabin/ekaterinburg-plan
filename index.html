@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <title>Генплан Екатеринбурга</title>
+  <meta name="title" content="Генплан Екатеринбурга">
+  <meta name="description" content="Карта с изменениями в генеральном плане Екатеринбурга 2025 и 2045">
+ 
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="./app.webmanifest" />
+
+  <link rel="preload" href="/assets/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%B7%D0%BE%D0%BD%D1%8B.map-CVtrx2ff.png" as="image">
+  <link rel="preload" href="/plans/2022-discussion/Функциональные зоны.map.png" as="image">
+  <link rel="preload" href="/plans/2021-ratified/Функциональные зоны.map.png" as="image">
+
+  <link rel="preconnect" href="https://mc.yandex.ru/metrika/">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://map.genplanekb.city/">
+  <meta property="og:title" content="Генплан Екатеринбурга">
+  <meta property="og:description" content="Карта с изменениями в генеральном плане Екатеринбурга 2025 и 2045">
+  <meta property="og:image" content="/og.png">
+  <script type="module" crossorigin src="/assets/index-CAxfpznO.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-ht1IQBYb.css">
+</head>
+
+<body>
+  <div class="loader-text" data-loader-text>Загрузка генплана...</div>
+  <div class="loader" data-loader><div></div><div></div><div></div><div></div></div>
+
+  <div class="plan" data-plan></div>
+  <div class="plan-switcher" data-plan-switcher></div>
+
+  <aside class="legend" data-legend>
+    <div class="legend__menu" data-legend-menu></div>
+    <button class="legend__button" data-legend-button>Легенда</button>
+  </aside>
+
+  <div class="zoom">
+    <button class="zoom__button zoom__button_plus" title="Увеличить масштаб (+)" data-plan-zoom-in>&#43;</button>
+    <button class="zoom__button zoom__button_minus" title="Уменьшить масштаб (-)" data-plan-zoom-out>&#8722;</button>
+  </div>
+
+  <a href="https://t.me/chatpeacefulpeople" class="contact-button" target="_blank">
+    <img src="data:image/svg+xml,%3csvg%20height='1000'%20viewBox='0%200%201000%201000'%20width='1000'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3clinearGradient%20id='a'%20x1='50%25'%20x2='50%25'%20y1='0%25'%20y2='99.25834%25'%3e%3cstop%20offset='0'%20stop-color='%232aabee'/%3e%3cstop%20offset='1'%20stop-color='%23229ed9'/%3e%3c/linearGradient%3e%3cg%20fill='none'%20fill-rule='evenodd'%3e%3ccircle%20cx='500'%20cy='500'%20fill='url(%23a)'%20r='500'/%3e%3cpath%20d='m226.328419%20494.722069c145.760154-63.505384%20242.95642-105.37202%20291.588797-125.599908%20138.855319-57.754731%20167.708265-67.787346%20186.514211-68.118629%204.136194-.072862%2013.384412.952211%2019.375019%205.813175%205.058351%204.104503%206.450106%209.649103%207.116105%2013.540622.666%203.891519%201.495328%2012.756499.836075%2019.683337-7.524619%2079.06182-40.083522%20270.924008-56.647644%20359.474601-7.008902%2037.469075-20.809646%2050.032265-34.170364%2051.261739-29.035934%202.671932-51.084503-19.188971-79.207225-37.623769-44.006507-28.846821-68.867384-46.804056-111.583319-74.953224-49.365654-32.531233-17.363955-50.410965%2010.769388-79.63145%207.362629-7.64714%20135.295618-124.012084%20137.771765-134.568208.309683-1.32022.597085-6.241374-2.326487-8.839924s-7.238511-1.709947-10.352292-1.003233c-4.41369%201.001745-74.714655%2047.468076-210.902895%20139.398991-19.954695%2013.702434-38.029038%2020.378719-54.223029%2020.028857-17.852576-.385695-52.19377-10.094118-77.722918-18.392638-31.312539-10.178472-56.199122-15.559904-54.032059-32.846099%201.12874-9.00372%2013.527697-18.2118%2037.196872-27.62424z'%20fill='%23fff'/%3e%3c/g%3e%3c/svg%3e" width="16" height="16" alt=""> Обсуждение в Telegram
+  </a>
+
+  <a href="https://github.com/a-chabin/ekaterinburg-plan" class="about-link" target="_blank">
+    <img src="data:image/svg+xml,%3csvg%20width='98'%20height='96'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M48.854%200C21.839%200%200%2022%200%2049.217c0%2021.756%2013.993%2040.172%2033.405%2046.69%202.427.49%203.316-1.059%203.316-2.362%200-1.141-.08-5.052-.08-9.127-13.59%202.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015%204.934.326%207.523%205.052%207.523%205.052%204.367%207.496%2011.404%205.378%2014.235%204.074.404-3.178%201.699-5.378%203.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283%200-5.378%201.94-9.778%205.014-13.2-.485-1.222-2.184-6.275.486-13.038%200%200%204.125-1.304%2013.426%205.052a46.97%2046.97%200%200%201%2012.214-1.63c4.125%200%208.33.571%2012.213%201.63%209.302-6.356%2013.427-5.052%2013.427-5.052%202.67%206.763.97%2011.816.485%2013.038%203.155%203.422%205.015%207.822%205.015%2013.2%200%2018.905-11.404%2023.06-22.324%2024.283%201.78%201.548%203.316%204.481%203.316%209.126%200%206.6-.08%2011.897-.08%2013.526%200%201.304.89%202.853%203.316%202.364%2019.412-6.52%2033.405-24.935%2033.405-46.691C97.707%2022%2075.788%200%2048.854%200z'%20fill='%23fff'/%3e%3c/svg%3e" width="16" height="16" alt=""> Код проекта на GitHub&nbsp;
+  </a>
+  
+</body>
+</html>
