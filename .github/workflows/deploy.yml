@@ -1,41 +1,49 @@
-name: Vercel Deploy
-on: [push]
+name: Deploy Vite to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact_id }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Vite
+        run: npm run build
+
+      - name: Upload Pages artifact
+        id: upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
   deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        id: extract_branch
-        run: |
-          branch_name=${GITHUB_REF#refs/heads/}
-          branch_formatted=${branch_name//\//-}
-          echo $branch_name
-          echo $branch_formatted
-          echo ::set-output name=branch::$branch_formatted
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Deploy to Staging
-        id: deploy-vercel-staging
-        uses: amondnet/vercel-action@v20
-        if: github.ref != 'refs/heads/main'
+      - name: Deploy
+        uses: actions/deploy-pages@v4
         with:
-          vercel-token: ${{secrets.VERCEL_TOKEN}}
-          github-token: ${{secrets.VERCEL_GITHUB_TOKEN}}
-          vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
-          alias-domains: >-
-            ${{ format(
-              '{0}-{1}.vercel.app',
-              secrets.VERCEL_DOMAIN,
-              steps.extract_branch.outputs.branch)
-            }}
-      - name: Deploy to Production
-        id: deploy-vercel-production
-        uses: amondnet/vercel-action@v20
-        if: github.ref == 'refs/heads/main'
-        with:
-          vercel-token: ${{secrets.VERCEL_TOKEN}}
-          vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
-          vercel-args: "--prod"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_id: ${{ needs.build.outputs.artifact_id }}
