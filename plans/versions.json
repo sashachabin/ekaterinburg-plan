@@ -1,5 +1,10 @@
 [
   {
+    "id": "2025-ratified",
+    "name": "2025",
+    "caption": "Утверждённый"
+  },
+  {
     "id": "2025-discussion",
     "name": "2025",
     "caption": "Обсуждение"
