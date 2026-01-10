@@ -1,49 +1,38 @@
-name: Deploy Vite to GitHub Pages
+name: Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
 
 jobs:
   build:
+    name: Build Website
     runs-on: ubuntu-latest
-    outputs:
-      artifact_id: ${{ steps.upload.outputs.artifact_id }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '24'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Vite
-        run: npm run build
-
-      - name: Upload Pages artifact
-        id: upload
-        uses: actions/upload-pages-artifact@v3
+          node-version: 24
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
 
   deploy:
-    name: Deploy to GitHub Pages
+    name: Publish to Pages
     needs: build
-    permissions:
-      pages: write
-      id-token: write
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+      - id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_id: ${{ needs.build.outputs.artifact_id }}
+  
