@@ -1,5 +1,5 @@
 {
-  "name": "ekaterinburg-plan",
+  "name": "genplanekb",
   "description": "Viewer of the master plan of Ekaterinburg for 2025/2045",
   "homepage": "https://genplanekb.ru/",
   "main": "index.js",

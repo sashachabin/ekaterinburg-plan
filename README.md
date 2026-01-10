@@ -1,10 +1,10 @@
-# ekaterinburg-plan
+# genplanekb
 
 Генплан Екатеринбурга. Приложение для просмотра изменений на картах 2025 и 2045.
 
 **[genplanekb.ru](https://genplanekb.ru)**
 
-<img src="https://github.com/a-chabin/ekaterinburg-plan/assets/22644149/9ec049eb-e0c9-4fce-86bc-bd023634e19a" alt="" width="65%">
+<img src="https://github.com/sashachabin/genplanekb/assets/22644149/9ec049eb-e0c9-4fce-86bc-bd023634e19a" alt="" width="65%">
 
 
 ## О проекте
@@ -27,7 +27,7 @@
 
 ### Файлы планов
 
-Планы и легенды находятся в подпапках с названием версий внутри [`/plans`](https://github.com/a-chabin/ekaterinburg-plan/tree/main/plans):
+Планы и легенды находятся в подпапках с названием версий внутри [`/plans`](https://github.com/sashachabin/genplanekb/tree/main/plans):
 ```sh
 plans/
 │
@@ -43,7 +43,7 @@ plans/
 
 ### Список планов
 
-Список планов с указанием доступных для них версий задается в [`/plans/plans.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/plans.json)
+Список планов с указанием доступных для них версий задается в [`/plans/plans.json`](https://github.com/sashachabin/genplanekb/blob/main/plans/plans.json)
 ```json5
 [
   {
@@ -60,7 +60,7 @@ plans/
 
 ### Описания версий
 
-Описания версий генплана задаются в [`/plans/versions.json`](https://github.com/a-chabin/ekaterinburg-plan/blob/main/plans/versions.json):
+Описания версий генплана задаются в [`/plans/versions.json`](https://github.com/sashachabin/genplanekb/blob/main/plans/versions.json):
 ```json5
 [
   {
