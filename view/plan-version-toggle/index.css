@@ -7,7 +7,6 @@
   padding-right: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
-  column-gap: 5px;
   border-radius: 10px;
   background-color: rgba(220, 220, 220, .95);
   box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .3);
@@ -16,9 +15,9 @@
 .plan-version-toggle__button {
   flex-grow: 1;
   height: 40px;
-  padding-right: 8px;
+  padding-right: 6px;
   padding-bottom: 0;
-  padding-left: 8px;
+  padding-left: 6px;
   transition: .15s ease;
   border: 0;
   border-bottom: 1px solid transparent;
@@ -32,6 +31,18 @@
 .plan-version-toggle__button:disabled {
   opacity: .35;
   pointer-events: none;
+}
+
+
+@media screen and (min-width: 768px) {
+  .plan-version-toggle {
+    column-gap: 5px;
+  }
+
+  .plan-version-toggle__button {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
 }
 
 @media screen and (min-width: 991px) {
