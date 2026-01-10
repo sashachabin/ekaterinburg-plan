@@ -14,6 +14,7 @@
     "viewerjs": "^1.11.7"
   },
   "devDependencies": {
-    "vite": "^7.3.0"
+    "unplugin-inject-preload": "^3.0.0",
+    "vite": "^7.3.1"
   }
 }
