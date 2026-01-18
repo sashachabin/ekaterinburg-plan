@@ -1,38 +1,40 @@
-name: Deploy
+name: Deploy to SFTP Host (Production)
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  pages: write
-  id-token: write
-
 jobs:
   build:
-    name: Build Website
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-artifact@v6
         with:
+          name: dist
           path: dist
 
   deploy:
-    name: Publish to Pages
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-  
+      - uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: ./dist
+      - uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASS }}
+          local_path: "./dist/*"
+          remote_path: "."
+          sftp_only: true
+          delete_remote_files: true
