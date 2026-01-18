@@ -34,7 +34,7 @@ jobs:
           server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
-          local_path: "./dist/*"
-          remote_path: "."
+          local_path: "./dist"
+          remote_path: ${{ secrets.SFTP_PATH }}
           sftp_only: true
           delete_remote_files: true
