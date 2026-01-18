@@ -7,6 +7,7 @@ import 'viewerjs/dist/viewer.css';
 
 const PLAN_SIZE_MAXIMIZED = 14000;
 const VIEWER_ZOOM_RATIO = 0.6;
+const VIEWER_ZOOM_RATIO_MIN = 1;
 const VIEWER_LOADING_TIMEOUT = 5000;
 
 let currentPlanVersion = versions[0].id;
@@ -37,7 +38,6 @@ const hideLoaderText = () => loaderText.style.display = 'none';
 /* Viewer */
 const { innerHeight: windowHeight, innerWidth: windowWidth } = window;
 const maxSideSize = Math.max(windowWidth, windowHeight);
-const minZoomRatio = windowWidth > windowHeight ? 1 : 2;
 
 const viewer = new Viewer(planImage, {
   title: false,
@@ -57,7 +57,7 @@ const viewer = new Viewer(planImage, {
   transition: false,
   zoomRatio: VIEWER_ZOOM_RATIO,
   maxZoomRatio: PLAN_SIZE_MAXIMIZED / maxSideSize,
-  minZoomRatio,
+  minZoomRatio: VIEWER_ZOOM_RATIO_MIN,
   ready() {
     hideLoader();
     showLoaderText();
@@ -146,7 +146,7 @@ document.addEventListener('keyup', ({ shiftKey, key }) => {
 
     case 'Escape':
     case '0':
-      viewer.zoomTo(minZoomRatio);
+      viewer.zoomTo(VIEWER_ZOOM_RATIO_MIN);
       viewer.moveTo(0, -windowHeight / 2);
       break;
   }
